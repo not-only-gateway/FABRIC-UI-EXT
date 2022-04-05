@@ -1,0 +1,38 @@
+.modal {
+    max-width: 50%;
+    height: fit-content;
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: var(--fabric-background-secondary);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: var(--fabric-boxshadow);
+
+    display: grid;
+    align-content: flex-start;
+    justify-items: center;
+
+
+    gap: 8px;
+}
+
+.choices {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 4px;
+}
+
+.message {
+    font-size: .9rem;
+    font-weight: 550;
+    color: var(--fabric-color-secondary);
+
+}
