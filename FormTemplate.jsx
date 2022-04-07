@@ -4,7 +4,7 @@ import Selector from './selector/Selector'
 
 export default function FormTemplate(props) {
     const hook = useFormData(props.initial)
-
+console.log(props.obj)
     return (<EmbeddedForm
         title={props.title}
         create={props.create}
@@ -13,8 +13,9 @@ export default function FormTemplate(props) {
         sections={props.obj.map(obj => {
             return {
                 ...obj, inputs: obj.inputs.map(o => {
-
+console.log(o)
                     if (o.query) return {
+                        type: 'custom',
                         children: (<Selector
                             value={hook.data[o.key]}
                             handleChange={(obj) => {

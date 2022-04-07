@@ -1,0 +1,39 @@
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--fabric-background-secondary);
+}
+
+.inputs {
+    width: clamp(100px, 25%, 350px);
+    height: clamp(100px, 35%, 500px);
+    background: var(--fabric-background-primary);
+    overflow: hidden;
+    padding: 8px;
+    border-radius: 5px;
+
+
+    display: grid;
+    align-content: flex-start;
+    justify-items: center;
+
+    position: relative;
+
+}
+
+.button {
+    width: calc(100% - 16px);
+
+    position: absolute !important;
+    bottom: 8px;
+
+}
+
+.logo {
+    width: 50%;
+}
+

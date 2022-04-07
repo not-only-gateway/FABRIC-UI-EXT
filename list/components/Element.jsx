@@ -52,7 +52,7 @@ export default function Element(props) {
 Element.propTypes = {
     setOnValidation: PropTypes.func,
     onRowClick: PropTypes.func,
-    lastElementRef: PropTypes.object,
+    lastElementRef: PropTypes.func,
     data: PropTypes.object,
     options: PropTypes.array,
     index: PropTypes.number,

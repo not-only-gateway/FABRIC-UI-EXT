@@ -1,0 +1,60 @@
+
+.container {
+    /*display: grid;*/
+    /*align-content: flex-start;*/
+    background: var(--fabric-background-primary);
+    height: 100vh;
+    width: 100vw;
+    overflow-y: auto;
+    overflow-x: visible;
+    display: grid;
+    align-content: flex-start;
+
+
+    gap: 4px;
+}
+
+.logo {
+    height: 30px;
+}
+
+.button {
+    height: 30px;
+    width: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button > * {
+    font-size: 1.2rem !important;
+}
+
+.content {
+    overflow-x: hidden;
+}
+
+.dropdown {
+    padding: 2px !important;
+}
+
+.profile {
+    width: 100%;
+    display: grid;
+    align-content: flex-start;
+    justify-items: center;
+    color: var(--fabric-color-secondary);
+
+    font-weight: 550;
+    font-size: .7rem;
+
+    border-bottom: var(--fabric-border-primary) 1px solid;
+    padding-bottom: 8px;
+}
+
+.emailWrapper {
+    color: var(--fabric-color-tertiary);
+    font-weight: normal;
+}
+
