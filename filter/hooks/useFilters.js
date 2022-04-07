@@ -2,7 +2,7 @@ import React, {useCallback, useMemo, useState} from "react";
 
 import styles from '../../list/styles/Header.module.css'
 
-import Selector from "../../../inputs/selector/Selector";
+import Selector from "../../selector/Selector";
 import {Checkbox, DateField, TextField} from "@f-ui/core";
 
 export default function useFilter(filter, setFilter, setSelectorOpen, selectorOpen) {

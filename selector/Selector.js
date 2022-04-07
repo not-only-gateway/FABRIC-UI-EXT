@@ -4,7 +4,7 @@ import SelectorModal from "./modules/SelectorModal";
 import PropTypes from "prop-types";
 import shared from './styles/Shared.module.css'
 import {Button, DataRow, ToolTip} from "@f-ui/core";
-import useQuery from "../../visualization/hooks/useQuery";
+import useQuery from "../hooks/useQuery";
 
 export default function Selector(props) {
     const [open, setOpen] = useState(false)

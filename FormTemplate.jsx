@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import {EmbeddedForm, useFormData} from "@f-ui/core";
-import Selector from './inputs/selector/Selector'
+import Selector from './selector/Selector'
 
 export default function FormTemplate(props) {
     const hook = useFormData(props.initial)

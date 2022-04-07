@@ -5,8 +5,7 @@ import React, {useState} from "react";
 import keyTemplate from "./templates/keyTemplate";
 import useList from "./hook/useList";
 import Settings from "./components/Settings";
-import useInfiniteScroll from "../hooks/useInfiniteScroll";
-import {DataProvider, useListData} from '@f-ui/core'
+import {DataProvider, useListData, useInfiniteScroll} from '@f-ui/core'
 import Element from "./components/Element";
 import Validate from "./components/Validate";
 

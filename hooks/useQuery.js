@@ -2,7 +2,7 @@ import React, {useEffect, useReducer, useState} from "react";
 import ACTIONS from "./deps/dataActions";
 import dataReducer from "./deps/dataReducer";
 import PropTypes from 'prop-types'
-import useRequest from "../../useRequest";
+import useRequest from "./useRequest";
 
 const init = (e) => {
     return e
