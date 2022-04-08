@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import {EmbeddedForm, useFormData} from "@f-ui/core";
+import {EmbeddedForm, useFormData} from "../fabric/src/index";
 import Selector from './selector/Selector'
 
 export default function FormTemplate(props) {
     const hook = useFormData(props.initial)
-console.log(props.obj)
+
     return (<EmbeddedForm
         title={props.title}
         create={props.create}
@@ -13,7 +13,7 @@ console.log(props.obj)
         sections={props.obj.map(obj => {
             return {
                 ...obj, inputs: obj.inputs.map(o => {
-console.log(o)
+
                     if (o.query) return {
                         type: 'custom',
                         children: (<Selector
@@ -46,5 +46,7 @@ console.log(o)
 FormTemplate.propTypes = {
 
     handleClose: PropTypes.func,
-    initial: PropTypes.object, obj: PropTypes.array, submit: PropTypes.field
+    initial: PropTypes.object,
+    obj: PropTypes.array,
+    submit: PropTypes.func
 }

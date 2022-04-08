@@ -1,11 +1,16 @@
-import {Button, Dropdown, DropdownOption, DropdownOptions, Fabric, Navigation, NavigationGroup} from "@f-ui/core";
+import {Button, Dropdown, DropdownOption, DropdownOptions, Fabric} from "../../fabric/src/index";
 import styles from "./styles/Wrapper.module.css";
 import PropTypes from "prop-types";
 import {useRouter} from "next/router";
-import {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import Cookies from "universal-cookie/lib";
 import useProfile from "./hooks/useProfile";
 import Auth from "./components/Auth";
+import Navigation from "../nav/Navigation";
+import NavigationGroup from "../nav/NavigationGroup";
+import Profile from "./components/Profile";
+import Avatar from "../avatar/Avatar";
+import {Switcher} from "@f-ui/core";
 
 const cookies = new Cookies()
 export default function Wrapper(props) {
@@ -36,7 +41,8 @@ export default function Wrapper(props) {
     }, [router.pathname])
 
     return (
-        <Fabric theme={theme} className={styles.container}>
+        <Fabric theme={theme} className={styles.container}
+                styles={{background: onProfile ? 'var(--fabric-background-tertiary)' : undefined}}>
             {onAuth ?
                 (
                     <Auth
@@ -55,28 +61,38 @@ export default function Wrapper(props) {
                             <NavigationGroup justify={'start'}>
                                 <img className={styles.logo} src={theme + '.png'} alt={'logo'}/>
                                 {start.map((p, i) => (
-                                    <Button
-                                        className={styles.button}
-                                        attributes={{key: i + '-wrapper-option-start'}}
-                                        onClick={() => router.push(p.path)}>
-                                        {p.icon}
-                                        {p.label}
-                                    </Button>
-
+                                    <React.Fragment key={i + '-wrapper-option-start'}>
+                                        {i === 0 ? <div className={styles.divider}/> : null}
+                                        <Button
+                                            className={styles.button}
+                                            variant={"minimal-horizontal"}
+                                            highlight={router.pathname === p.path}
+                                            styles={{padding: '0 8px', width: 'fit-content'}}
+                                            onClick={() => router.push(p.path)}
+                                        >
+                                            {p.icon}
+                                            {p.label}
+                                        </Button>
+                                        {i < start.length - 1 ? <div className={styles.divider}/> : null}
+                                    </React.Fragment>
                                 ))}
                             </NavigationGroup>
 
                             <NavigationGroup justify={'end'}>
                                 {end.map((p, i) => (
-                                    <Button
-                                        className={styles.button}
-                                        attributes={{key: i + '-wrapper-option-end'}}
-                                        onClick={() => router.push(p.path)}
-                                    >
-                                        {p.icon}
-                                        {p.label}
-                                    </Button>
-
+                                    <React.Fragment key={i + '-wrapper-option-end'}>
+                                        <Button
+                                            className={styles.button}
+                                            variant={"minimal-horizontal"}
+                                            highlight={router.pathname === p.path}
+                                            styles={{padding: '0 8px', width: 'fit-content'}}
+                                            onClick={() => router.push(p.path)}
+                                        >
+                                            {p.icon}
+                                            {p.label}
+                                        </Button>
+                                        {i < end.length - 1 ? <div className={styles.divider}/> : null}
+                                    </React.Fragment>
                                 ))}
                                 <Button
                                     className={styles.button}
@@ -86,23 +102,14 @@ export default function Wrapper(props) {
                                     }}>
                                     <span className={'material-icons-round'}>{theme + '_mode'}</span>
                                 </Button>
+                                <div className={styles.divider}/>
                                 {logged && Object.keys(profileData).length > 0 ?
-                                    <Dropdown className={styles.dropdown}  >
-                                        {profileData.pic ?
-                                            <img className={styles.avatar} src={profileData.pic} alt={'logo'}/>
-                                            :
-                                            <span className={'material-icons-round'}>account_circle</span>
-                                        }
+                                    <Dropdown className={styles.dropdown}>
+                                        <Avatar alt={'Img'} src={profileData.pic}/>
                                         {profileData.name.split(' ').shift()}
                                         <DropdownOptions>
                                             <div className={styles.profile}>
-                                                {profileData.pic ?
-                                                    <img className={styles.avatarBig} src={profileData.pic}
-                                                         alt={'logo'}/>
-                                                    :
-                                                    <span style={{fontSize: '3rem'}}
-                                                          className={'material-icons-round'}>account_circle</span>
-                                                }
+                                                <Avatar alt={'Img'} src={profileData.pic} size={"medium"}/>
                                                 {profileData.name}
                                                 <div className={styles.emailWrapper}>
                                                     {profileData.user_email}
@@ -146,6 +153,7 @@ export default function Wrapper(props) {
                                     :
                                     <Button
                                         className={styles.button}
+
                                         onClick={() => setOnAuth(true)}>
                                         <span className={'material-icons-round'}>login</span>
                                     </Button>
@@ -154,9 +162,13 @@ export default function Wrapper(props) {
                             </NavigationGroup>
 
                         </Navigation>
-                        <div className={styles.content}>
-                            {props.children}
-                        </div>
+                        <Switcher openChild={onProfile ? 0 : 1} className={styles.content}>
+                            <Profile
+                                refreshProfile={refreshProfile}
+                                host={props.host} handleClose={() => setOnProfile(false)}
+                                profileData={profileData}/>
+                                {props.children}
+                        </Switcher>
                     </>
                 )}
         </Fabric>

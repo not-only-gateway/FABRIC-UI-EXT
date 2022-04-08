@@ -10,12 +10,11 @@
     display: grid;
     align-content: flex-start;
 
-
-    gap: 4px;
 }
 
 .logo {
     height: 30px;
+    margin-right: 8px;
 }
 
 .button {
@@ -25,6 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
 .button > * {
@@ -37,6 +37,7 @@
 
 .dropdown {
     padding: 2px !important;
+
 }
 
 .profile {
@@ -51,6 +52,7 @@
 
     border-bottom: var(--fabric-border-primary) 1px solid;
     padding-bottom: 8px;
+
 }
 
 .emailWrapper {
@@ -58,3 +60,10 @@
     font-weight: normal;
 }
 
+
+
+.divider{
+    width: 1px;
+    height: 25px;
+    background: var(--fabric-border-primary);
+}

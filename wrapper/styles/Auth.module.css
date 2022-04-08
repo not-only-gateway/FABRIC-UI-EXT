@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
 
-    background: var(--fabric-background-secondary);
+    background: var(--fabric-background-tertiary);
 }
 
 .inputs {
@@ -13,7 +13,7 @@
     height: clamp(100px, 35%, 500px);
     background: var(--fabric-background-primary);
     overflow: hidden;
-    padding: 8px;
+    padding: 12px;
     border-radius: 5px;
 
 
@@ -23,6 +23,7 @@
 
     position: relative;
 
+    box-shadow: var(--fabric-boxshadow);
 }
 
 .button {

@@ -17,6 +17,7 @@ export default function Auth(props) {
                 method: 'POST',
                 data: {...form, email: form.email + '@aeb.gov.br'}
             })
+            console.log(res)
             if (res?.status === 202) {
                 cookies.set('jwt', res.data.jwt)
                 localStorage.setItem('exp', res.data.exp)
@@ -25,6 +26,7 @@ export default function Auth(props) {
             } else
                 setError(true)
         } catch (e) {
+            console.log(e)
         }
     }
     return (
@@ -48,6 +50,11 @@ export default function Auth(props) {
                     }} value={form.password}
                     width={'100%'} type={'password'}
                     helperText={error ? 'Senha ou email não compatíveis' : undefined}
+                    onEnter={() => {
+                        console.log(form.password.length >= 8 && form.email.length > 0)
+                        if (form.password.length >= 8 && form.email.length > 0)
+                            submit().catch()
+                    }}
                 />
                 <Button
                     variant={form.password.length < 8 || form.email.length === 0 ? 'outlined' : 'filled'}

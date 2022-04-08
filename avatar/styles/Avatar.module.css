@@ -1,0 +1,23 @@
+.wrapper {
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+}
+
+.wrapper[data-size='medium'] {
+    width: 65px;
+    height: 65px;
+}
+
+.wrapper[data-size='big'] {
+    width: 100px;
+    height: 100px;
+}
+
+.img {
+    height: 100%;
+}
