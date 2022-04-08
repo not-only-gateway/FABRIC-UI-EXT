@@ -73,7 +73,7 @@ export default function Header(props) {
                 <div className={styles.filters}>
 
                     <Filter
-                        keys={props.keys.filter(e => !e.deeperFieldKey)} filters={props.hook.filters}
+                        keys={props.keys.filter(e => e.type !== 'image' && e.label)} filters={props.hook.filters}
                         setFilters={props.hook.setFilters}
                         getType={getType}
                         parseDate={parseDate}

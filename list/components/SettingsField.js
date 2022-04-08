@@ -7,9 +7,9 @@ import {Button, ToolTip} from "@f-ui/core";
 
 export default function SettingsField(props){
     return (
-        <div className={[styles.fieldRow, shared.wrapper].join(' ')}>
+        <div className={styles.fieldRow}>
             <div className={styles.fieldLabel}>
-                {props.field.label}
+                {props.field.type === 'image' ? 'Imagem' : props.field.label}
             </div>
             <Button
                 className={styles.visibilityButton}
@@ -21,9 +21,9 @@ export default function SettingsField(props){
                     })
                 }}>
                 {props.field.visible ?
-                    <span className="material-icons-round">visibility</span>
+                    <span className="material-icons-round" style={{fontSize: '1.1rem'}}>visibility</span>
                     :
-                    <span className="material-icons-round">visibility_off</span>
+                    <span className="material-icons-round" style={{fontSize: '1.1rem'}}>visibility_off</span>
                 }
                 <ToolTip>
                     {props.field.visible ? 'Esconder' : 'Mostrar'}

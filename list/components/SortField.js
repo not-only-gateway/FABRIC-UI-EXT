@@ -46,8 +46,8 @@ export default function SortField(props) {
         >
 
             <div className={styles.overflow}>
-                {props.value.label}
-                <ToolTip content={props.value.label.toUpperCase()}/>
+                {props.value.type === 'image' ? 'Imagem' : props.value.label}
+                {props.value.label ? <ToolTip content={props.value.label.toUpperCase()}/> : null}
             </div>
             <span className="material-icons-round"
                   style={{

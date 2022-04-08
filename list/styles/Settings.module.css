@@ -4,14 +4,16 @@
     overflow: hidden;
     background-color: var(--fabric-background-primary);
 
-    border-radius: 5px 0 5px 0;
+    border-radius: 5px ;
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 25%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 20%;
+  height: 45%;
     padding: 16px;
-    box-shadow: var(--fabric-box-shadow-primary) -1px 0 3px 1px;
+    box-shadow: var(--fabric-boxshadow);
 }
 
 .contentWrapper {
@@ -28,23 +30,24 @@
 
 .content {
     display: grid;
-    gap: 8px;
+    gap: 4px;
     height: 100%;
-    background: var(--fabric-background-secondary);
-    border-radius: 5px;
-    padding: 8px;
-    overflow-y: auto;
 
-    border: var(--fabric-border-primary) 1px solid;
+    color: var(--fabric-color-secondary);
+    font-size: .8rem;
+
+
+
+    overflow-y: auto;
 }
 
 .fieldRow {
     max-width: 100%;
     overflow: hidden;
-    height: 60px;
+    height: 35px;
     position: relative;
-    z-index: 999;
-    background: var(--fabric-background-primary);
+
+
     border-radius: 5px;
     border: var(--fabric-border-primary) 1px solid;
     padding: 8px;
@@ -57,6 +60,8 @@
     /*height: auto;*/
 
     user-select: none;
+
+    transition: 150ms linear;
 }
 
 .fieldRow:hover {
@@ -71,9 +76,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-weight: 600;
+    font-weight: 550;
     color: var(--fabric-color-tertiary);
-    font-size: .9rem;
+    font-size: .75rem;
 
 }
 

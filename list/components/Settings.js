@@ -26,8 +26,8 @@ export default function Settings(props) {
         <Modal
             open={props.open}
             handleClose={() => props.setOpen(false)}
-            animationStyle={"slide-right"}
-            blurIntensity={'1px'}
+
+            blurIntensity={'0'}
             className={styles.modal}
         >
             <div className={styles.header}>
@@ -55,7 +55,7 @@ export default function Settings(props) {
                         'Todos os campos estão escondidos'
                     }
                 </Tab>
-                <Tab label={'Escondidos'} className={styles.content}>
+                <Tab label={'Escondidos'} className={styles.content} styles={{textAlign: fields.hidden.length === 0  ? 'center' : undefined}}>
                     {fields.hidden.length > 0 ?
                         fields.hidden.map((e, i) => (
                             <React.Fragment key={i + '-row-' + JSON.stringify(e.label)}>
