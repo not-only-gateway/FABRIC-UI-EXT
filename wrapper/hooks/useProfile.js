@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import Cookies from "universal-cookie/lib";
-import useRequest from "../../hooks/useRequest";
 import axios from "axios";
 
 const cookies = new Cookies()
@@ -12,13 +11,16 @@ export default function useProfile(host) {
     const refreshProfile = () => {
         const jwt = cookies.get('jwt')
         if (jwt) {
-            axios({
-                url: host + '/api/user/' + localStorage.getItem('email'),
-                method: 'GET'
-            }).then(res => {
-                setLogged(!!res)
-                setProfileData(res?.data)
-            })
+           try{
+               axios({
+                   url: host + '/api/user/' + localStorage.getItem('email'),
+                   method: 'GET'
+               }).then(res => {
+                   setLogged(!!res)
+                   setProfileData(res?.data)
+               }).catch(error => {
+               });
+           }catch (e){}
         }
     }
     useEffect(() => {

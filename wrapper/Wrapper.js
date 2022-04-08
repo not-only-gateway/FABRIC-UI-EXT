@@ -1,4 +1,4 @@
-import {Button, Dropdown, DropdownOption, DropdownOptions, Fabric} from "@f-ui/core";
+import {Button, Dropdown, DropdownOption, DropdownOptions, Fabric, Switcher} from "@f-ui/core";
 import styles from "./styles/Wrapper.module.css";
 import PropTypes from "prop-types";
 import {useRouter} from "next/router";
@@ -10,7 +10,6 @@ import Navigation from "../nav/Navigation";
 import NavigationGroup from "../nav/NavigationGroup";
 import Profile from "./components/Profile";
 import Avatar from "../avatar/Avatar";
-import {Switcher} from "@f-ui/core";
 
 const cookies = new Cookies()
 export default function Wrapper(props) {

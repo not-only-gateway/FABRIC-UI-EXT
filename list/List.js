@@ -5,12 +5,13 @@ import React, {useState} from "react";
 import keyTemplate from "./templates/keyTemplate";
 import useList from "./hook/useList";
 import Settings from "./components/Settings";
-import {DataProvider, useListData, useInfiniteScroll} from '@f-ui/core'
+import {DataProvider, useInfiniteScroll, useListData} from '@f-ui/core'
 import Element from "./components/Element";
 import Validate from "./components/Validate";
 
 export default function List(props) {
     const {keys, keysDispatcher, actions, setOpenSettings, openSettings} = useList(props.keys)
+    console.log(keys, props.keys)
     const lastElementRef = useInfiniteScroll(props.hook.setCurrentPage, props.hook.currentPage, props.hook.loading, props.hook.hasMore)
     const [scrolled, setScrolled] = useState(false)
     const [selfContained, setSelfContained] = useState(true)

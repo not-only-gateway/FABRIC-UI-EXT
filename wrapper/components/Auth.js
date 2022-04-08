@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from '../styles/Auth.module.css'
-import {Button, TextField, ThemeContext} from "@f-ui/core";
-import {useContext, useState} from "react";
+import {Button, TextField} from "@f-ui/core";
+import {useState} from "react";
 import useRequest from "../../hooks/useRequest";
 import Cookies from "universal-cookie/lib";
 

@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import styles from '../styles/Profile.module.css'
-import {Button, Tab, Tabs, TextField, ThemeContext} from "@f-ui/core";
-import {useContext, useRef, useState} from "react";
+import {Button, Dropdown, DropdownOption, DropdownOptions, Tab, Tabs, ToolTip} from "@f-ui/core";
+import {useRef, useState} from "react";
 import useRequest from "../../hooks/useRequest";
 import Cookies from "universal-cookie/lib";
 import FormTemplate from "../../FormTemplate";
 import Avatar from "../../avatar/Avatar";
-import {Dropdown, DropdownOption, DropdownOptions, ToolTip} from "@f-ui/core";
 
 const cookies = new Cookies()
 export default function Profile(props) {
