@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import styles from '../styles/Profile.module.css'
-import {Button, Tab, Tabs, TextField, ThemeContext} from "../../../fabric/src/index";
+import {Button, Tab, Tabs, TextField, ThemeContext} from "@f-ui/core";
 import {useContext, useRef, useState} from "react";
 import useRequest from "../../hooks/useRequest";
 import Cookies from "universal-cookie/lib";

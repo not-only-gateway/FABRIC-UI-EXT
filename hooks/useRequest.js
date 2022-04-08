@@ -1,6 +1,6 @@
 import axios from "axios";
 import {useContext, useState} from "react";
-import {AlertProvider} from "../../fabric/src/index";
+import {AlertProvider} from "@f-ui/core";
 
 export default function useRequest(sS = true) {
     const alert = useContext(AlertProvider)

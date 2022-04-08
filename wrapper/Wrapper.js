@@ -1,4 +1,4 @@
-import {Button, Dropdown, DropdownOption, DropdownOptions, Fabric} from "../../fabric/src/index";
+import {Button, Dropdown, DropdownOption, DropdownOptions, Fabric} from "@f-ui/core";
 import styles from "./styles/Wrapper.module.css";
 import PropTypes from "prop-types";
 import {useRouter} from "next/router";
