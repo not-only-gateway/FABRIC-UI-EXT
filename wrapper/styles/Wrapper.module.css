@@ -13,6 +13,7 @@
 }
 
 .logo {
+    cursor: pointer;
     height: 30px;
     margin-right: 8px;
 }

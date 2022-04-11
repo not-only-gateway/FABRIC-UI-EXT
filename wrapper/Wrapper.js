@@ -58,7 +58,12 @@ export default function Wrapper(props) {
                     <>
                         <Navigation>
                             <NavigationGroup justify={'start'}>
-                                <img className={styles.logo} src={theme + '.png'} alt={'logo'}/>
+                                <img className={styles.logo} onClick={() => {
+                                    setOnProfile(false)
+                                    if(!requiredAuth)
+                                        setOnAuth(false)
+                                    router.push('/')
+                                }} src={theme + '.png'} alt={'logo'}/>
                                 {start.map((p, i) => (
                                     <React.Fragment key={i + '-wrapper-option-start'}>
                                         {i === 0 ? <div className={styles.divider}/> : null}
