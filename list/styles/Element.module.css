@@ -4,7 +4,6 @@
     position: relative;
 
     cursor: pointer;
-
 }
 
 
@@ -13,6 +12,8 @@
     padding: 4px;
     cursor: pointer !important;
     transition: 150ms linear;
+
+    width: 100% !important;
 }
 
 .row:hover {
@@ -32,13 +33,14 @@
     height: 100%;
     padding: 0 !important;
 
-    backdrop-filter: blur(20px);
+    background: var(--fabric-border-primary) !important;
     display: flex;
     align-items: center;
     justify-content: center;
 
     position: absolute !important;
 
+    box-shadow: var(--fabric-boxshadow);
     right: 0;
 
     transform: translateX(calc(100% - 8px));
@@ -46,14 +48,13 @@
 
 .dropdown[data-open = 'true'] {
     transform: translateX(0);
+
+
     box-shadow: var(--fabric-boxshadow);
 }
 
 .dropdown:hover {
     transform: translateX(0);
-
-
-    box-shadow: var(--fabric-boxshadow);
 }
 
 .options {
@@ -67,5 +68,16 @@
     background: var(--fabric-background-secondary);
     box-shadow: var(--fabric-boxshadow);
 
+
+}
+
+.card{
+
+    height: 35px;
+    width: 35px;
+    bottom: 4px;
+    right: 4px;
+
+    transform: none;
 
 }

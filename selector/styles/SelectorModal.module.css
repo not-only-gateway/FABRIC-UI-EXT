@@ -73,14 +73,11 @@
     position: relative;
     display: grid;
     align-content: flex-start;
-    gap: 4px;
+
     overflow-y: auto;
     height: 100%;
     width: 100%;
 
-    background: var(--fabric-background-quaternary);
-    padding: 4px;
-    border-radius: 5px;
 }
 
 .hoveredRow {

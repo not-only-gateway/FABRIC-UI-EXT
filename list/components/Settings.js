@@ -72,6 +72,7 @@ export default function Settings(props) {
     )
 }
 Settings.propTypes = {
+
     open: PropTypes.bool,
     setOpen: PropTypes.func,
     keys: PropTypes.arrayOf(keyTemplate),

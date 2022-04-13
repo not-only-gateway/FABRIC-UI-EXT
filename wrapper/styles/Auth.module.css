@@ -38,3 +38,11 @@
     width: 50%;
 }
 
+.hideButton{
+width: 35px;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -10,6 +10,9 @@ export default function Auth(props) {
     const [form, setForm] = useState({email: '', password: ''})
     const {make} = useRequest(true)
     const [error, setError] = useState(false)
+    const [hidden, setHidden] = useState(true)
+
+
     const submit = async () => {
         try {
             const res = await make({
@@ -17,16 +20,15 @@ export default function Auth(props) {
                 method: 'POST',
                 data: {...form, email: form.email + '@aeb.gov.br'}
             })
-            console.log(res)
             if (res?.status === 202) {
-                cookies.set('jwt', res.data.jwt)
+                console.log(res.data)
+                cookies.set('jwt', res.data.token)
                 localStorage.setItem('exp', res.data.exp)
                 localStorage.setItem('email', form.email + '@aeb.gov.br')
                 props.handleClose()
             } else
                 setError(true)
         } catch (e) {
-            console.log(e)
         }
     }
     return (
@@ -48,13 +50,18 @@ export default function Auth(props) {
                             setError(false)
                         setForm({...form, password: v.target.value})
                     }} value={form.password}
-                    width={'100%'} type={'password'}
+                    width={'100%'} type={hidden ? 'password' : 'text'}
                     helperText={error ? 'Senha ou email não compatíveis' : undefined}
                     onEnter={() => {
-                        console.log(form.password.length >= 8 && form.email.length > 0)
+
                         if (form.password.length >= 8 && form.email.length > 0)
                             submit().catch()
                     }}
+                    maskEnd={
+                        <Button className={styles.hideButton} onClick={() => setHidden(!hidden)}>
+                            <span className={'material-icons-round'} style={{fontSize: '1.2rem'}}>{!hidden ? 'visibility' : 'visibility_off'}</span>
+                        </Button>
+                    }
                 />
                 <Button
                     variant={form.password.length < 8 || form.email.length === 0 ? 'outlined' : 'filled'}

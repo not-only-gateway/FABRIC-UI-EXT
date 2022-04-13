@@ -2,6 +2,7 @@ import styles from "../styles/Element.module.css";
 import {DataRow, Dropdown, DropdownOption, DropdownOptions} from "@f-ui/core";
 import PropTypes from "prop-types";
 import React, {useState} from 'react'
+import {VARIANTS} from "../List";
 
 export default function Element(props) {
     const [openDropdown, setOpenDropdown] = useState(false)
@@ -12,8 +13,11 @@ export default function Element(props) {
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
         >
-            {props.options && (open || openDropdown)? (
-                <Dropdown className={styles.dropdown} onOpen={() => setOpenDropdown(true)} onClose={() => setOpenDropdown(false)}>
+            {props.options && (open || openDropdown) ? (
+                <Dropdown
+                    className={[styles.dropdown, props.variant === VARIANTS.CARDS ? styles.card : ''].join(' ')}
+                    onOpen={() => setOpenDropdown(true)}
+                    onClose={() => setOpenDropdown(false)}>
                     <DropdownOptions>
                         {props.options.map((o, oI) => (
                             <React.Fragment key={oI + 'list-option'}>
@@ -38,18 +42,22 @@ export default function Element(props) {
             ) : null}
 
             <DataRow
-
+                asCard={props.variant === VARIANTS.CARDS}
                 className={styles.row}
+                cellStyles={{maxHeight: '50vh'}}
                 styles={{
-                    background: props.index % 2 === 0 ? 'var(--fabric-background-tertiary)' : undefined,
-                    borderRadius: props.index === 0 ? '5px 5px 0 0' : props.isLast ? '0 0 5px 5px' : 0
+                    background: props.variant === VARIANTS.CARDS ? 'var(--fabric-background-secondary)' : props.index % 2 === 0 ? 'var(--fabric-background-tertiary)' : undefined,
+                    borderRadius: props.variant === VARIANTS.CARDS ? undefined : props.index === 0 ? '5px 5px 0 0' : props.isLast ? '0 0 5px 5px' : 0
                 }}
-                index={props.index} onClick={() => props.onRowClick(props.data)} reference={props.lastElementRef}/>
+                index={props.index}
+                onClick={() => props.onRowClick(props.data)}
+                reference={props.lastElementRef}/>
         </div>
     )
 }
 
 Element.propTypes = {
+    variant: PropTypes.number,
     setOnValidation: PropTypes.func,
     onRowClick: PropTypes.func,
     lastElementRef: PropTypes.func,

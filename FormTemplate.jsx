@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import {EmbeddedForm, useFormData} from "@f-ui/core";
+import {EmbeddedForm, useFormData} from "../fabric/src/index";
 import Selector from './selector/Selector'
 
 export default function FormTemplate(props) {

@@ -1,48 +1,69 @@
 import PropTypes from 'prop-types'
 import styles from './styles/List.module.css'
 import Header from "./components/Header";
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import keyTemplate from "./templates/keyTemplate";
 import useList from "./hook/useList";
 import Settings from "./components/Settings";
-import {DataProvider, useInfiniteScroll, useListData} from '@f-ui/core'
+import {DataProvider, Masonry, useInfiniteScroll, useListData} from '@f-ui/core'
 import Element from "./components/Element";
 import Validate from "./components/Validate";
 
+export const VARIANTS = {
+    EMBEDDED: 0,
+    MINIMAL: 1,
+    CARDS: 2
+}
 export default function List(props) {
     const {keys, keysDispatcher, actions, setOpenSettings, openSettings} = useList(props.keys)
-    console.log(keys, props.keys)
+
     const lastElementRef = useInfiniteScroll(props.hook.setCurrentPage, props.hook.currentPage, props.hook.loading, props.hook.hasMore)
-    const [scrolled, setScrolled] = useState(false)
-    const [selfContained, setSelfContained] = useState(true)
-    const hook = useListData(keys.filter(k => k.visible), props.hook.data.map(d => d.data), selfContained)
+    const [variant, setVariant] = useState(VARIANTS.EMBEDDED)
+    const visualizeKeys = useMemo(() => {
+        return keys.filter(k => k.type !== 'image' && variant !== VARIANTS.CARDS || variant === VARIANTS.CARDS)
+    }, [variant])
+
+    const hook = useListData(visualizeKeys.filter(k => k.visible), props.hook.data.map(d => {
+        return {...d.data, image: 'https://picsum.photos/200/' + Math.round(Math.random() * 300 )}
+    }), variant !== VARIANTS.MINIMAL)
     const [onValidation, setOnValidation] = useState({})
+
+    const nodes = props.hook.data.map((e, index) => (
+        <React.Fragment key={e.id + '-list-row'}>
+            <Element
+                setOnValidation={setOnValidation}
+                onRowClick={props.onRowClick}
+                variant={variant}
+                isLast={index === props.hook.data.length - 1}
+                data={e.data}
+                options={props.options}
+                index={index} lastElementRef={lastElementRef}
+            />
+        </React.Fragment>
+    ))
+
     return (
         <DataProvider.Provider value={hook}>
             <div
-                onScroll={event => {
-                    if (event.target.scrollTop > 0)
-                        setScrolled(true)
-                    else
-                        setScrolled(false)
-                }}
+
                 className={styles.container}
             >
                 <Validate onValidation={onValidation} setOnValidation={setOnValidation} keys={keys}/>
                 <Settings
                     open={openSettings}
-                    keys={keys} actions={actions} setOpen={setOpenSettings}
+
+                    keys={visualizeKeys} actions={actions} setOpen={setOpenSettings}
                     dispatchKeys={keysDispatcher}/>
                 <Header
-                    scrolled={scrolled}
-                    setSelfContained={setSelfContained}
-                    selfContained={selfContained}
+                    hasCardView={props.hasCardView}
+
                     title={props.title}
+                    variant={variant} setVariant={setVariant}
                     noFilters={props.noFilters}
                     createOption={props.createOption}
                     onCreate={props.onCreate}
                     hook={props.hook}
-                    keys={keys} actions={actions} dispatch={keysDispatcher}
+                    keys={visualizeKeys} actions={actions} dispatch={keysDispatcher}
                     setOpenSettings={setOpenSettings}
                 />
                 <div
@@ -56,12 +77,13 @@ export default function List(props) {
                         :
                         null
                     }
-
-                    {props.hook.data.map((e, index) => (
-                        <React.Fragment key={e.id + '-list-row'}>
-                            <Element setOnValidation={setOnValidation} onRowClick={props.onRowClick} isLast={index === props.hook.data.length -1 } data={e.data} options={props.options} index={index} lastElementRef={lastElementRef}/>
-                        </React.Fragment>
-                    ))}
+                    {variant === VARIANTS.CARDS ?
+                        <Masonry>
+                            {nodes}
+                        </Masonry>
+                        :
+                        nodes
+                    }
                 </div>
             </div>
         </DataProvider.Provider>
@@ -69,6 +91,7 @@ export default function List(props) {
 }
 
 List.propTypes = {
+    hasCardView: PropTypes.bool,
     children: PropTypes.func,
     options: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string,

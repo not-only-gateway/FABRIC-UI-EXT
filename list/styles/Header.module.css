@@ -111,3 +111,8 @@ align-content: flex-start;
     overflow-x: auto;
     padding-bottom: 8px;
 }
+
+.buttonGroup{
+    display: flex;
+    align-items: center;
+}

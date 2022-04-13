@@ -72,16 +72,20 @@ export default function SelectorModal(props) {
             />}
 
             <div className={styles.rows}>
-                {props.hook.data.length === 0 ? 'Nada encontrado' : props.hook.data.map((e, i) => (
-                    <React.Fragment key={e.id + '-selector-modal-row-' + i}>
+                {props.hook.data.length === 0 ? 'Nada encontrado' : props.hook.data.map((e, index) => (
+                    <React.Fragment key={e.id + '-selector-modal-row-' + index}>
                         <DataRow
-                            styles={{height: '52px'}}
+                            styles={{
+                                minHeight: '50px',
+                                background: index % 2 === 0 ? 'var(--fabric-background-tertiary)' : undefined,
+                                borderRadius: index === 0 ? '5px 5px 0 0' : index === props.hook.data.length - 1 ? '0 0 5px 5px' : 0
+                            }}
                             className={styles.row}
                             onClick={() => {
                                 props.handleChange(e.data)
                                 props.setOpen(false)
                             }}
-                            reference={i === (props.hook.data.length - 1) ? lastElementRef : undefined}
+                            reference={index === (props.hook.data.length - 1) ? lastElementRef : undefined}
                             keys={props.keys} object={e.data} selfContained={true}
                         />
                     </React.Fragment>))}
