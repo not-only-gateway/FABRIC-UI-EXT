@@ -5,9 +5,10 @@ import React, {useMemo, useState} from "react";
 import keyTemplate from "./templates/keyTemplate";
 import useList from "./hook/useList";
 import Settings from "./components/Settings";
-import {DataProvider, Masonry, useInfiniteScroll, useListData} from '@f-ui/core'
+import {DataProvider, Masonry, useInfiniteScroll, useListData} from '../../fabric/src/index'
 import Element from "./components/Element";
 import Validate from "./components/Validate";
+import ListTabs from "./ListTabs";
 
 export const VARIANTS = {
     EMBEDDED: 0,
@@ -24,11 +25,22 @@ export default function List(props) {
     }, [variant])
 
     const hook = useListData(visualizeKeys.filter(k => k.visible), props.hook.data.map(d => {
-        return {...d.data, image: 'https://picsum.photos/200/' + Math.round(Math.random() * 300 )}
+        if (props.mapKeyOnNull && !d.data[props.mapKeyOnNull.key])
+            return {...d.data, [props.mapKeyOnNull.key]: props.mapKeyOnNull.value()}
+        return d.data
     }), variant !== VARIANTS.MINIMAL)
     const [onValidation, setOnValidation] = useState({})
+    const [currentTab, setCurrentTab] = useState(0)
 
-    const nodes = props.hook.data.map((e, index) => (
+    const toRender = useMemo(() => {
+        if (variant === VARIANTS.CARDS) {
+
+            return props.hook.data.slice(currentTab * 15, currentTab * 15 + 15)
+        } else
+            return props.hook.data
+    }, [props.hook.data, variant, currentTab])
+
+    const nodes = toRender.map((e, index) => (
         <React.Fragment key={e.id + '-list-row'}>
             <Element
                 setOnValidation={setOnValidation}
@@ -37,7 +49,8 @@ export default function List(props) {
                 isLast={index === props.hook.data.length - 1}
                 data={e.data}
                 options={props.options}
-                index={index} lastElementRef={lastElementRef}
+                index={index + (variant === VARIANTS.CARDS ? currentTab * 15 : 0)}
+                lastElementRef={variant !== VARIANTS.CARDS && index === props.hook.data.length - 1 ? lastElementRef : undefined}
             />
         </React.Fragment>
     ))
@@ -69,6 +82,8 @@ export default function List(props) {
                 <div
                     className={styles.tableWrapper}
                 >
+                    <ListTabs currentTab={currentTab} setCurrentTab={setCurrentTab} hook={props.hook}
+                              variant={variant}/>
                     {props.hook.data.length === 0 ?
                         <div className={styles.empty}>
                             <span className={'material-icons-round'} style={{fontSize: '75px'}}>folder</span>
@@ -78,7 +93,7 @@ export default function List(props) {
                         null
                     }
                     {variant === VARIANTS.CARDS ?
-                        <Masonry>
+                        <Masonry changeListener={toRender}>
                             {nodes}
                         </Masonry>
                         :
@@ -91,6 +106,7 @@ export default function List(props) {
 }
 
 List.propTypes = {
+    mapKeyOnNull: PropTypes.shape({key: PropTypes.string, value: PropTypes.func}),
     hasCardView: PropTypes.bool,
     children: PropTypes.func,
     options: PropTypes.arrayOf(PropTypes.shape({

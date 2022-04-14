@@ -10,14 +10,15 @@ export default function useRequest(sS = true) {
     const alert = useContext(AlertProvider)
     const [showSuccess, setShowSuccess] = useState(sS)
 
-    const make = async (params) => {
+    const make = async (params, overrideShowSuccess) => {
         let res
-    const auth = {authorization: cookies.get('jwt')}
+    const auth = {authorization: params.headers?.authorization ? params.headers?.authorization : cookies.get('jwt')}
         try {
             res = await axios({...params,
             headers: params.headers ? {...params.headers, ...auth} : auth
             })
-            if (showSuccess) alert.pushAlert('Sucesso', 'success')
+            console.log(res)
+            if (showSuccess||overrideShowSuccess) alert.pushAlert('Sucesso', 'success')
         } catch (e) {
             alert.pushAlert('Algum erro ocorreu', 'error')
         }

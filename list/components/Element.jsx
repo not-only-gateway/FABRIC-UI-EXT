@@ -1,5 +1,5 @@
 import styles from "../styles/Element.module.css";
-import {DataRow, Dropdown, DropdownOption, DropdownOptions} from "@f-ui/core";
+import {DataRow, Dropdown, DropdownOption, DropdownOptions} from "../../../fabric/src/index";
 import PropTypes from "prop-types";
 import React, {useState} from 'react'
 import {VARIANTS} from "../List";
@@ -7,6 +7,7 @@ import {VARIANTS} from "../List";
 export default function Element(props) {
     const [openDropdown, setOpenDropdown] = useState(false)
     const [open, setOpen] = useState(false)
+
     return (
         <div
             className={styles.listRow}

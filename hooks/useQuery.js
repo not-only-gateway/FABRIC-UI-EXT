@@ -74,7 +74,8 @@ export default function useQuery(props) {
         currentPage,
         hasMore,
         loading,
-        clean
+        clean,
+        dispatchData
     }
 }
 useQuery.propTypes = {

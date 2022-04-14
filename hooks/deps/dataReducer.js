@@ -30,6 +30,8 @@ export default function dataReducer(currentState, action) {
                 return value
             } else return currentState
         }
+        case ACTIONS.RETURN:
+            return currentState.slice(0, 15 * action.payload)
         default:
             return currentState
     }

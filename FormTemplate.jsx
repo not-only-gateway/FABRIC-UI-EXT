@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
-import {EmbeddedForm, useFormData} from "../fabric/src/index";
+import {Button, Dropdown, DropdownOption, DropdownOptions, EmbeddedForm, ToolTip, useFormData} from "../fabric/src/index";
 import Selector from './selector/Selector'
+import Avatar from "./avatar/Avatar";
+import styles from "./wrapper/styles/Profile.module.css";
+import AvatarInput from "./avatar/AvatarInput";
 
 export default function FormTemplate(props) {
     const hook = useFormData(props.initial)
@@ -34,6 +37,23 @@ export default function FormTemplate(props) {
                             height={o.height}
                         />)
                     }
+                    if (o.type === 'image') {
+                        return {
+                            type: "custom",
+                            children: (
+                                <AvatarInput
+                                    label={o.label}
+                                    required={o.required}
+                                    handleChange={(img) => {
+                                        hook.handleChange({
+                                            event: img, key: o.key
+                                        })
+                                    }}
+                                    value={hook.data[o.key]}
+                                />
+                            )
+                        }
+                    }
                     return o
                 })
             }
@@ -44,7 +64,7 @@ export default function FormTemplate(props) {
 }
 
 FormTemplate.propTypes = {
-
+    create: PropTypes.bool,
     handleClose: PropTypes.func,
     initial: PropTypes.object,
     obj: PropTypes.array,

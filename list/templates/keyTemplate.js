@@ -3,8 +3,8 @@ import React from "react";
 
 export default PropTypes.shape({
     key: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['string', 'number', 'object', 'date', 'bool', 'array']),
+    label: PropTypes.string,
+    type: PropTypes.oneOf(['string', 'number', 'object', 'date', 'bool', 'array', 'image']),
     getColor: PropTypes.func,
     subfieldKey: PropTypes.string,
     visible: PropTypes.bool,
