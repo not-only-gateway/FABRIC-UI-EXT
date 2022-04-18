@@ -1,5 +1,5 @@
 import styles from "../styles/Element.module.css";
-import {DataRow, Dropdown, DropdownOption, DropdownOptions} from "../../../fabric/src/index";
+import {DataRow, Dropdown, DropdownOption, DropdownOptions} from "@f-ui/core";
 import PropTypes from "prop-types";
 import React, {useState} from 'react'
 import {VARIANTS} from "../List";

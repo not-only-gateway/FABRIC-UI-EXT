@@ -5,7 +5,7 @@ import React, {useMemo, useState} from "react";
 import keyTemplate from "./templates/keyTemplate";
 import useList from "./hook/useList";
 import Settings from "./components/Settings";
-import {DataProvider, Masonry, useInfiniteScroll, useListData} from '../../fabric/src/index'
+import {DataProvider, Masonry, useInfiniteScroll, useListData} from '@f-ui/core'
 import Element from "./components/Element";
 import Validate from "./components/Validate";
 import ListTabs from "./ListTabs";

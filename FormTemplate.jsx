@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import {Button, Dropdown, DropdownOption, DropdownOptions, EmbeddedForm, ToolTip, useFormData} from "../fabric/src/index";
+import {Button, Dropdown, DropdownOption, DropdownOptions, EmbeddedForm, ToolTip, useFormData} from "@f-ui/core";
 import Selector from './selector/Selector'
 import Avatar from "./avatar/Avatar";
 import styles from "./wrapper/styles/Profile.module.css";
