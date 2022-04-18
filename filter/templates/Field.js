@@ -10,7 +10,10 @@ export default function Field(props) {
     const {
         getField,
         changed
-    } = useFilter(props.selectedField, props.setSelectedField, props.setSelectorOpen, props.selectorOpen)
+    } = useFilter(props.selectedField, props.setSelectedField, props.setSelectorOpen, props.selectorOpen,v => {
+        console.log(v)
+        props.applyFilter(v)
+    })
 
     if (props.selectedField?.type !== 'object')
         return (
@@ -24,7 +27,7 @@ export default function Field(props) {
                             <div className={styles.title}>
                                 {props.selectedField?.label}
                             </div>
-                            {getField()}
+                            {getField(() => null)}
 
                             <Button
                                 styles={{marginTop: '16px'}}

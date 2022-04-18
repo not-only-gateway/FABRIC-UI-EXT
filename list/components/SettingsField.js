@@ -7,7 +7,7 @@ import {Button, ToolTip} from "@f-ui/core";
 
 export default function SettingsField(props){
     return (
-        <div className={styles.fieldRow}>
+        <div className={styles.fieldRow} style={{background: props.index % 2 === 0 ? 'var(--fabric-background-secondary)' : undefined}}>
             <div className={styles.fieldLabel}>
                 {props.field.type === 'image' ? 'Imagem' : props.field.label}
             </div>
@@ -33,6 +33,7 @@ export default function SettingsField(props){
     )
 }
 SettingsField.propTypes={
+    index: PropTypes.number,
     field: PropTypes.object,
     actions: PropTypes.object,
     dispatchKeys: PropTypes.func

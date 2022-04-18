@@ -54,6 +54,15 @@ export default function Filter(props) {
         return icon
     }
     const [searchString, setSearchString] = useState('')
+    const applyFilter = (v) => {
+        props.setFilters(prevState => {
+            return [
+                ...prevState,
+                (v ? v : selectedFilter)
+            ]
+        })
+        setSelectedFilter(undefined)
+    }
     return (
         <>
             <Dropdown
@@ -107,20 +116,9 @@ export default function Filter(props) {
                         selectedField={selectedFilter}
                         setSelectedField={setSelectedFilter} selectorOpen={selectorOpen}
                         keys={props.keys}
-                        handleClose={() => {
-                        console.log('ON CLOSE')
-                        setSelectedFilter(undefined)
-                    }}
+                        handleClose={() => setSelectedFilter(undefined)}
                         setSelectorOpen={setSelectorOpen}
-                        applyFilter={() => {
-                            props.setFilters(prevState => {
-                                return [
-                                    ...prevState,
-                                    selectedFilter
-                                ]
-                            })
-                            setSelectedFilter(undefined)
-                        }}
+                        applyFilter={applyFilter}
                     />
                 )
                 :
@@ -136,19 +134,12 @@ export default function Filter(props) {
                             setFilters={props.setFilters}
                             filters={props.filters}
                             selectedField={selectedFilter}
-                            setSelectedField={setSelectedFilter} selectorOpen={selectorOpen}
+                            setSelectedField={setSelectedFilter}
+                            selectorOpen={selectorOpen}
                             keys={props.keys}
                             setSelectorOpen={setSelectorOpen}
-                            applyFilter={() => {
 
-                                props.setFilters(prevState => {
-                                    return [
-                                        ...prevState,
-                                        selectedFilter
-                                    ]
-                                })
-                                setSelectedFilter(undefined)
-                            }}
+                            applyFilter={applyFilter}
                         />
                     </Modal>
                 )}
@@ -167,7 +158,6 @@ export default function Filter(props) {
                     </div>
 
                     <Button
-                        color={'secondary'}
 
                         onClick={() => {
                             let newFilters = [...props.filters]

@@ -10,7 +10,8 @@ export default function Element(props) {
 
     return (
         <div
-            className={styles.listRow}
+            className={[styles.listRow, props.variant === VARIANTS.CARDS ? styles.animation : ''].join(' ')}
+            style={{animationDelay: (props.index - props.page * 15) * 100 + 'ms'}}
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
         >
@@ -65,5 +66,5 @@ Element.propTypes = {
     data: PropTypes.object,
     options: PropTypes.array,
     index: PropTypes.number,
-    isLast: PropTypes.bool
+    page: PropTypes.number,
 }

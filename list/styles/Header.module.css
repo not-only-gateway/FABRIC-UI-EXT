@@ -93,6 +93,7 @@ align-content: flex-start;
 }
 
 .button {
+    background: var(--fabric-border-primary) !important;
     font-size: .7rem !important;
     font-weight: 550;
     height: 25px;

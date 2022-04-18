@@ -5,7 +5,7 @@ import styles from '../../list/styles/Header.module.css'
 import Selector from "../../selector/Selector";
 import {Checkbox, DateField, TextField} from "@f-ui/core";
 
-export default function useFilter(filter, setFilter, setSelectorOpen, selectorOpen) {
+export default function useFilter(filter, setFilter, setSelectorOpen, selectorOpen, applyFilter) {
     const [onInput, setOnInput] = useState(undefined)
     const [changed, setChanged] = useState(false)
     const query = useMemo(() => {
@@ -15,10 +15,11 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
 
     const handleChange = (value) => {
         setFilter(prevState => {
+
             if (filter.type === 'object')
                 return {
                     ...prevState,
-                    value: value,
+                    value: value[query.primaryKey],
                     objectLabel: value[query?.keys[0]?.key]
                 }
             else
@@ -27,6 +28,7 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
                     value: value
                 }
         })
+
         setChanged(true)
     }
     const getField = useCallback((handleClose) => {
@@ -152,13 +154,19 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
                         openOnMount={true}
                         query={query}
                         keys={query && query.keys ? query.keys : []}
-                        open={selectorOpen} onClick={() => setSelectorOpen(true)}
+                        open={selectorOpen}
+                        onClick={() => setSelectorOpen(true)}
                         handleClose={() => {
-
                             handleClose()
                             setSelectorOpen(false)
                         }}
-                        handleChange={entity => handleChange(entity)}
+                        handleChange={entity => {
+                            applyFilter(  {
+                                ...filter,
+                                value: entity[query.primaryKey],
+                                objectLabel: entity[query?.keys[0]?.key]
+                            })
+                        }}
                         value={filter.value}
                         label={filter.label}
                         required={false}

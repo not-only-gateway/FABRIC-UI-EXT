@@ -1,18 +1,17 @@
 
-
 .modal {
     overflow: hidden;
     background-color: var(--fabric-background-primary);
 
-    border-radius: 5px ;
+    border-radius: 5px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: 20%;
-  height: 45%;
-    padding: 16px;
+    width: 350px;
+    height: 45%;
+    padding: 8px;
     box-shadow: var(--fabric-boxshadow);
 }
 
@@ -37,7 +36,6 @@
     font-size: .8rem;
 
 
-
     overflow-y: auto;
 }
 
@@ -48,8 +46,7 @@
     position: relative;
 
 
-    border-radius: 5px;
-    border: var(--fabric-border-primary) 1px solid;
+    border-bottom: var(--fabric-border-primary) 1px solid;
     padding: 8px;
 
     display: flex;
@@ -96,6 +93,6 @@
     color: var(--fabric-color-secondary);
 }
 
-.range{
+.range {
     /*max-width: */
 }

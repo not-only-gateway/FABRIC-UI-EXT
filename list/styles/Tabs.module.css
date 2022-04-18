@@ -1,16 +1,21 @@
 .wrapper {
     width: 100%;
 
-    height: 35px;
+    height: fit-content;
     display: flex;
-    align-content: center;
+
+    align-items: center;
     justify-content: space-between;
     margin-bottom: 8px;
+
+    border-radius: 5px;
+    padding: 4px;
+    background: var(--fabric-background-secondary);
 }
 
 .nav {
-    height: 35px;
-    width: 35px;
+    height: 30px;
+    width: 30px;
     padding: 0px !important;
 
     background: var(--fabric-border-primary) !important;
@@ -27,10 +32,16 @@
 
 
 .cell {
-    width: 25px;
-    height: 25px;
+    text-align: left;
+    font-size: .8rem;
+    font-weight: 550;
+
+
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 5px;
+}
+
+.group {
+    display: flex;
+
 }

@@ -13,6 +13,7 @@ export default function Selector(props) {
         if (props.openOnMount)
             setOpen(true)
     }, [props.openOnMount])
+    console.log(props)
     return (<>
 
         <SelectorModal

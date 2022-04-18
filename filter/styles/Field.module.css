@@ -93,6 +93,7 @@
     padding: 4px !important;
 
 
+    background: var(--fabric-border-primary) !important;
 }
 
 .mainButtonWrapper {
@@ -111,6 +112,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
 .filters {

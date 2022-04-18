@@ -48,6 +48,7 @@ export default function List(props) {
                 variant={variant}
                 isLast={index === props.hook.data.length - 1}
                 data={e.data}
+                page={currentTab}
                 options={props.options}
                 index={index + (variant === VARIANTS.CARDS ? currentTab * 15 : 0)}
                 lastElementRef={variant !== VARIANTS.CARDS && index === props.hook.data.length - 1 ? lastElementRef : undefined}
@@ -57,10 +58,7 @@ export default function List(props) {
 
     return (
         <DataProvider.Provider value={hook}>
-            <div
-
-                className={styles.container}
-            >
+            <div className={styles.container}>
                 <Validate onValidation={onValidation} setOnValidation={setOnValidation} keys={keys}/>
                 <Settings
                     open={openSettings}

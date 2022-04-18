@@ -27,7 +27,7 @@ export default function Settings(props) {
             open={props.open}
             handleClose={() => props.setOpen(false)}
 
-            blurIntensity={'0'}
+            blurIntensity={'1px'}
             className={styles.modal}
         >
             <div className={styles.header}>
@@ -40,7 +40,7 @@ export default function Settings(props) {
                 <Tab label={'Todos'} className={styles.content}>
                     {props.keys.map((e, i) => (
                         <React.Fragment key={i + '-row-' + JSON.stringify(e.label)}>
-                            <SettingsField field={e} dispatchKeys={props.dispatchKeys} actions={props.actions}/>
+                            <SettingsField index={i} field={e} dispatchKeys={props.dispatchKeys} actions={props.actions}/>
                         </React.Fragment>
                     ))}
                 </Tab>
@@ -48,7 +48,7 @@ export default function Settings(props) {
                     {fields.visible.length > 0 ?
                         fields.visible.map((e, i) => (
                             <React.Fragment key={i + '-row-' + JSON.stringify(e.label)}>
-                                <SettingsField field={e} dispatchKeys={props.dispatchKeys} actions={props.actions}/>
+                                <SettingsField  index={i} field={e} dispatchKeys={props.dispatchKeys} actions={props.actions}/>
                             </React.Fragment>
                         ))
                         :
@@ -59,7 +59,7 @@ export default function Settings(props) {
                     {fields.hidden.length > 0 ?
                         fields.hidden.map((e, i) => (
                             <React.Fragment key={i + '-row-' + JSON.stringify(e.label)}>
-                                <SettingsField field={e} dispatchKeys={props.dispatchKeys} actions={props.actions}/>
+                                <SettingsField index={i} field={e} dispatchKeys={props.dispatchKeys} actions={props.actions}/>
                             </React.Fragment>
                         ))
                         :

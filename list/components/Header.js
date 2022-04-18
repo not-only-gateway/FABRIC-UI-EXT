@@ -50,12 +50,13 @@ export default function Header(props) {
                         {options.map((o, i) => (
                             <React.Fragment key={'bt-' + i}>
                                 <Button
-                                    styles={{borderRadius: i === 0 ? '3px 0  0 3px' : i === options.length -1 ? ' 0 3px  3px 0 ' : '0'}}
+
                                     variant={props.variant === o.variant ? 'filled' : "outlined"}
                                     onClick={() => o.onClick()}
                                     className={styles.button}
+                                    styles={{borderRadius: i === 0 ? '3px 0  0 3px' : i === options.length -1 ? ' 0 3px  3px 0 ' : '0', fontSize: 'unset'}}
                                 >
-                                    <span className="material-icons-round" style={{fontSize: '1.3rem'}}>{o.icon}</span>
+                                    <span className="material-icons-round" style={{fontSize: '1.1rem'}}>{o.icon}</span>
                                     <ToolTip>
                                         {o.label}
                                     </ToolTip>
@@ -65,13 +66,14 @@ export default function Header(props) {
                     </div>
 
                     <Dropdown hideArrow={true} className={styles.button}>
-                        <span className="material-icons-round" style={{fontSize: '1.3rem'}}>more_vert</span>
+                        <span className="material-icons-round"
+                              style={{fontSize: '1.2rem'}}>more_vert</span>
                         <DropdownOptions>
 
                             <DropdownOption option={{
                                 label: 'Recarregar',
                                 icon: <span className="material-icons-round"
-                                            style={{fontSize: '1.3rem'}}>refresh</span>,
+                                            style={{fontSize: '1.2rem'}}>refresh</span>,
                                 onClick: () => {
                                     props.hook.clean()
                                 }
@@ -79,7 +81,7 @@ export default function Header(props) {
                             <DropdownOption option={{
                                 label: 'Configurações',
                                 icon: <span className="material-icons-round"
-                                            style={{fontSize: '1.3rem'}}>settings</span>,
+                                            style={{fontSize: '1.2rem'}}>settings</span>,
                                 onClick: () => {
                                     props.setOpenSettings(true)
                                 }
@@ -93,7 +95,7 @@ export default function Header(props) {
                         onClick={() => props.onCreate()} variant={"filled"}
                         className={styles.button}>
                       <span className="material-icons-round"
-                            style={{fontSize: '1.3rem'}}
+                            style={{fontSize: '1.2rem'}}
                       >
                             add
                         </span>
