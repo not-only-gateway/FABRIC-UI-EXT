@@ -17,6 +17,7 @@ export default function Sort(props) {
                         additionalWidth={e.additionalWidth ? e.additionalWidth : '0px'}
                         value={e} sorts={props.sorts}
                         length={props.keys.length}
+                        isLast={i === props.keys.length - 1}
                     />
                 </React.Fragment>
             ))}

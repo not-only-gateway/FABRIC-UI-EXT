@@ -10,13 +10,14 @@ export default function Element(props) {
 
     return (
         <div
-            className={[styles.listRow, props.variant === VARIANTS.CARDS ? styles.animation : ''].join(' ')}
+            className={[styles.listRow, props.variant === VARIANTS.CARDS ? styles.animation :''].join(' ')}
             style={{animationDelay: (props.index - props.page * 15) * 100 + 'ms'}}
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
         >
             {props.options && (open || openDropdown) ? (
                 <Dropdown
+                    variant={'filled'}
                     className={[styles.dropdown, props.variant === VARIANTS.CARDS ? styles.card : ''].join(' ')}
                     onOpen={() => setOpenDropdown(true)}
                     onClose={() => setOpenDropdown(false)}>
@@ -67,4 +68,5 @@ Element.propTypes = {
     options: PropTypes.array,
     index: PropTypes.number,
     page: PropTypes.number,
+    fetchPage: PropTypes.number
 }

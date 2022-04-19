@@ -49,6 +49,7 @@ export default function List(props) {
                 isLast={index === props.hook.data.length - 1}
                 data={e.data}
                 page={currentTab}
+                fetchPage={props.hook.currentPage}
                 options={props.options}
                 index={index + (variant === VARIANTS.CARDS ? currentTab * 15 : 0)}
                 lastElementRef={variant !== VARIANTS.CARDS && index === props.hook.data.length - 1 ? lastElementRef : undefined}

@@ -13,8 +13,9 @@ export default function SortField(props) {
 
         <Button
             className={styles.cell}
-
+            styles={{borderRightColor:   !props.isLast? 'var(--fabric-background-tertiary)' : undefined}}
             disabled={props.value.type === 'object'}
+            variant={"outlined"}
             onClick={() => {
                 const exists = props.sorts.findIndex(e => e.key === props.value.key)
                 switch (currentSort) {
@@ -65,6 +66,8 @@ export default function SortField(props) {
 }
 
 SortField.propTypes = {
+    isLast: PropTypes.bool,
+
 
     length: PropTypes.number,
     additionalWidth: PropTypes.string,

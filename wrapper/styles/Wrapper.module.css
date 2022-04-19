@@ -15,12 +15,12 @@
 .logo {
     cursor: pointer;
     height: 30px;
-    margin-right: 8px;
+
 }
 
 .button {
-    height: 30px;
-    width: 30px;
+    height: 27px;
+    width: 27px;
 
     display: flex;
     align-items: center;
@@ -64,9 +64,48 @@
 }
 
 
-
-.divider{
+.divider {
     width: 1px;
     height: 25px;
     background: var(--fabric-border-primary);
+}
+
+.loadWrapper {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 999;
+    backdrop-filter: blur(2px);
+}
+
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+    animation: pulse 2.5s infinite ease;
+
+
+    border-radius: 50%;
+    transform-origin: top left;
+    background: rgba(0, 149, 255, .8);
+    width: 50px;
+    height: 50px;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(.15) translate(-50%, -50%);
+        /*opacity: 0;*/
+        border-radius: 10px;
+    }
+    50% {
+        transform: scale(1) translate(-50%, -50%);
+        border-radius: 50%;
+    }
+    100% {
+        transform: scale(.15) translate(-50%, -50%);
+        border-radius: 10px;
+    }
 }

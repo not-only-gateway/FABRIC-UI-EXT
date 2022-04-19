@@ -35,8 +35,7 @@
 }
 
 .headerRow {
-    border: var(--fabric-border-primary) 1px solid;
-    background: var(--fabric-background-secondary);
+    background: var(--fabric-border-primary);
     border-radius: 5px;
 
     padding: 0 4px;
