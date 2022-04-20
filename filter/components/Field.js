@@ -10,10 +10,7 @@ export default function Field(props) {
     const {
         getField,
         changed
-    } = useFilter(props.selectedField, props.setSelectedField, props.setSelectorOpen, props.selectorOpen,v => {
-        console.log(v)
-        props.applyFilter(v)
-    })
+    } = useFilter(props.selectedField, props.setSelectedField, props.setSelectorOpen, props.selectorOpen,props.applyFilter)
 
     if (props.selectedField?.type !== 'object')
         return (
@@ -24,13 +21,11 @@ export default function Field(props) {
                 {props.selectedField !== null && props.selectedField !== undefined ?
                     (
                         <>
-                            <div className={styles.title}>
-                                {props.selectedField?.label}
-                            </div>
+
                             {getField(() => null)}
 
                             <Button
-                                styles={{marginTop: '16px'}}
+                                styles={{marginTop: '8px'}}
                                 className={styles.buttonField}
                                 variant={'filled'}
                                 disabled={!changed}

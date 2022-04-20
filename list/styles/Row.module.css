@@ -24,9 +24,11 @@
     width: 100%;
 
 }
-.cell:disabled{
+
+.cell:disabled {
     color: #999999 !important;
 }
+
 .overflow {
     overflow: hidden;
     max-width: 100%;
@@ -50,6 +52,12 @@
 
 }
 
+.buttonSort {
+    width: 100%;
+    height: 25px;
+
+    padding: 0 !important;
+}
 
 .mainButton {
     border: var(--fabric-border-primary) 1px solid;
@@ -68,4 +76,28 @@
     height: 50%;
     width: 1px;
     background: var(--fabric-border-secondary);
+}
+
+.cellWrapper {
+    width: 300px !important;
+
+    color: var(--fabric-color-primary);
+
+    padding: 4px;
+    height: fit-content !important;
+    max-height: unset !important;
+    overflow: hidden !important;
+}
+
+.label {
+    font-size: .8rem;
+    font-weight: 550;
+
+}
+
+.group {
+    padding: 4px;
+    border-radius: 5px;
+
+    background: var(--fabric-background-tertiary);
 }

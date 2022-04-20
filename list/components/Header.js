@@ -5,7 +5,7 @@ import useHeader from "../hook/useHeader";
 import keyTemplate from "../templates/keyTemplate";
 import Filter from "../../filter/Filter";
 
-import Sort from "./Sort";
+import Sort from "../../filter/components/Sort";
 import {Button, Dropdown, DropdownOption, DropdownOptions, ToolTip} from "@f-ui/core";
 import {VARIANTS} from "../List";
 
@@ -54,7 +54,10 @@ export default function Header(props) {
                                     variant={props.variant === o.variant ? 'filled' : "outlined"}
                                     onClick={() => o.onClick()}
                                     className={styles.button}
-                                    styles={{borderRadius: i === 0 ? '3px 0  0 3px' : i === options.length -1 ? ' 0 3px  3px 0 ' : '0', fontSize: 'unset'}}
+                                    styles={{
+                                        borderRadius: i === 0 ? '3px 0  0 3px' : i === options.length - 1 ? ' 0 3px  3px 0 ' : '0',
+                                        fontSize: 'unset'
+                                    }}
                                 >
                                     <span className="material-icons-round" style={{fontSize: '1.1rem'}}>{o.icon}</span>
                                     <ToolTip>
@@ -106,26 +109,17 @@ export default function Header(props) {
             {props.noFilters ?
                 null
                 :
-                <div className={styles.filters}>
-
-                    <Filter
-                        keys={props.keys.filter(e => e.type !== 'image' && e.label)} filters={props.hook.filters}
-                        setFilters={props.hook.setFilters}
-                        getType={getType}
-                        parseDate={parseDate}
-                        noFilters={props.noFilters}
-                    />
-                </div>
-            }
-            {props.variant !== VARIANTS.CARDS ?
-                <Sort
-                    keys={props.keys.filter(e => e.visible === true)}
-                    sorts={props.hook.sorts}
-                    setSorts={props.hook.setSorts}
-
+                <Filter
+                    keys={props.keys.filter(e => e.type !== 'image' && e.label)} filters={props.hook.filters}
+                    setFilters={props.hook.setFilters}
+                    getType={getType}
+                    variant={props.variant}
+                    hook={props.hook}
+                    parseDate={parseDate}
+                    noFilters={props.noFilters}
                 />
-            :
-            null}
+            }
+
         </div>
 
     )

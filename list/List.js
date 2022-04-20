@@ -26,7 +26,7 @@ export default function List(props) {
 
     const hook = useListData(visualizeKeys.filter(k => k.visible), props.hook.data.map(d => {
         if (props.mapKeyOnNull && !d.data[props.mapKeyOnNull.key])
-            return {...d.data, [props.mapKeyOnNull.key]: props.mapKeyOnNull.value()}
+            return {...d.data, [props.mapKeyOnNull.key]: props.mapKeyOnNull.value(d.data)}
         return d.data
     }), variant !== VARIANTS.MINIMAL)
     const [onValidation, setOnValidation] = useState({})

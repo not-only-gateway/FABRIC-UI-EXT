@@ -15,7 +15,6 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
 
     const handleChange = (value) => {
         setFilter(prevState => {
-
             if (filter.type === 'object')
                 return {
                     ...prevState,
@@ -43,43 +42,45 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
             <div className={styles.fieldWrapper}>
                 {val}
 
-                <Checkbox
-                    width={'100%'}
-                    noMargin={true}
-                    checked={filter.greater_than}
-                    handleCheck={() => {
-                        setFilter(prevState => {
-                            return {...baseProps, ...{value: prevState.value, greater_than: true}}
-                        })
-                    }}
-                    label={'Maior que.'}
-                />
+                <div className={styles.options}>
+                    <Checkbox
+                        width={'100%'}
+                        noMargin={true}
+                        checked={filter.greater_than}
+                        handleCheck={() => {
+                            setFilter(prevState => {
+                                return {...baseProps, ...{value: prevState.value, greater_than: true}}
+                            })
+                        }}
+                        label={'Maior que.'}
+                    />
 
-                <Checkbox
-                    width={'100%'}
-                    noMargin={true}
-                    checked={filter.less_than}
-                    handleCheck={() => {
-                        setFilter(prevState => {
-                            return {...baseProps, ...{value: prevState.value, less_than: true}}
-                        })
-                    }}
-                    label={'Menor que.'}
-                />
+                    <Checkbox
+                        width={'100%'}
+                        noMargin={true}
+                        checked={filter.less_than}
+                        handleCheck={() => {
+                            setFilter(prevState => {
+                                return {...baseProps, ...{value: prevState.value, less_than: true}}
+                            })
+                        }}
+                        label={'Menor que.'}
+                    />
 
 
-                <Checkbox
-                    width={'100%'}
-                    noMargin={true}
-                    checked={filter.equal_to}
-                    handleCheck={() => {
-                        setFilter(prevState => {
-                            return {...baseProps, ...{value: prevState.value, equal_to: true}}
-                        })
-                    }}
-                    label={'Iqual a'}
-                />
+                    <Checkbox
+                        width={'100%'}
+                        noMargin={true}
+                        checked={filter.equal_to}
+                        handleCheck={() => {
+                            setFilter(prevState => {
+                                return {...baseProps, ...{value: prevState.value, equal_to: true}}
+                            })
+                        }}
+                        label={'Iqual a'}
+                    />
 
+                </div>
 
             </div>
         )
@@ -95,42 +96,42 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
                         />
 
 
-                        <Checkbox
-                            noMargin={true}
-                            width={'100%'}
-                            checked={filter.equal_to}
-                            handleCheck={() => {
-                                setFilter(prevState => {
-                                    return {...baseProps, ...{value: prevState.value, equal_to: true}}
-                                })
-                            }}
-                            label={'É igual a.'}
-                        />
+                        <div className={styles.options}>
+                            <Checkbox
+                                noMargin={true}
+                                width={'100%'}
+                                checked={filter.equal_to}
+                                handleCheck={() => {
+                                    setFilter(prevState => {
+                                        return {...baseProps, ...{value: prevState.value, equal_to: true}}
+                                    })
+                                }}
+                                label={'É igual a'}
+                            />
+                            <Checkbox
+                                noMargin={true}
+                                width={'100%'}
+                                checked={filter.different_from}
+                                handleCheck={() => {
+                                    setFilter(prevState => {
+                                        return {...baseProps, ...{value: prevState.value, different_from: true}}
+                                    })
+                                }}
+                                label={'Não é'}
+                            />
 
-
-                        <Checkbox
-                            noMargin={true}
-                            width={'100%'}
-                            checked={filter.different_from}
-                            handleCheck={() => {
-                                setFilter(prevState => {
-                                    return {...baseProps, ...{value: prevState.value, different_from: true}}
-                                })
-                            }}
-                            label={'Não é (case sensitive).'}
-                        />
-
-                        <Checkbox
-                            noMargin={true}
-                            width={'100%'}
-                            checked={filter.contains}
-                            handleCheck={() => {
-                                setFilter(prevState => {
-                                    return {...baseProps, ...{value: prevState.value, contains: true}}
-                                })
-                            }}
-                            label={'Contém.'}
-                        />
+                            <Checkbox
+                                noMargin={true}
+                                width={'100%'}
+                                checked={filter.contains}
+                                handleCheck={() => {
+                                    setFilter(prevState => {
+                                        return {...baseProps, ...{value: prevState.value, contains: true}}
+                                    })
+                                }}
+                                label={'Contém'}
+                            />
+                        </div>
                     </div>
                 )
                 break
@@ -161,7 +162,7 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
                             setSelectorOpen(false)
                         }}
                         handleChange={entity => {
-                            applyFilter(  {
+                            applyFilter({
                                 ...filter,
                                 value: entity[query.primaryKey],
                                 objectLabel: entity[query?.keys[0]?.key]
@@ -178,7 +179,8 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
             case 'date': {
                 field = dateNumber((
                     <DateField
-                        label={filter.label} width={'100%'} disabled={false} required={false}
+                        placeholder={filter.label}
+                        width={'100%'} disabled={false} required={false}
                         handleChange={value => handleChange(value)}
                         value={filter.value}
                     />

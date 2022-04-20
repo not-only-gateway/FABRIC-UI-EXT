@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import styles from '../styles/Row.module.css'
+import styles from '../../list/styles/Row.module.css'
 import React, {useRef} from 'react'
-import keyTemplate from "../templates/keyTemplate";
+import keyTemplate from "../../list/templates/keyTemplate";
 import SortField from "./SortField";
 
 export default function Sort(props) {
@@ -12,6 +12,7 @@ export default function Sort(props) {
             {props.keys.map((e, i) => (
                 <React.Fragment key={i + 'header-row-cell'}>
                     <SortField
+                        {...props}
 
                         setSorts={props.setSorts}
                         additionalWidth={e.additionalWidth ? e.additionalWidth : '0px'}
@@ -27,6 +28,13 @@ export default function Sort(props) {
 }
 
 Sort.propTypes = {
+    setSelectedFilter: PropTypes.func.isRequired,
+    selectedFilter: PropTypes.object.isRequired,
+    selectorOpen: PropTypes.bool.isRequired,
+    setSelectorOpen: PropTypes.func.isRequired,
+    applyFilter: PropTypes.func.isRequired,
+
+
     keys: PropTypes.arrayOf(keyTemplate),
     hasOptions: PropTypes.bool,
     setSorts: PropTypes.func,
