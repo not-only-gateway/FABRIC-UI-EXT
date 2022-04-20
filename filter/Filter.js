@@ -3,10 +3,7 @@ import styles from "./styles/Field.module.css";
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import keyTemplate from "../list/templates/keyTemplate";
-
-import Field from "./components/Field";
-import {Button, Dropdown, DropdownOptions, Modal, TextField, ToolTip} from "@f-ui/core";
-import {VARIANTS} from "../list/List";
+import {Button, ToolTip} from "@f-ui/core";
 import Sort from "./components/Sort";
 
 

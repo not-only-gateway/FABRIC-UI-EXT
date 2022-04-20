@@ -1,4 +1,4 @@
-import {Button, Dropdown, DropdownOption, DropdownOptions, Fabric, Modal, Switcher} from "@f-ui/core";
+import {Button, Dropdown, DropdownOption, DropdownOptions, Fabric, Switcher} from "@f-ui/core";
 import styles from "./styles/Wrapper.module.css";
 import PropTypes from "prop-types";
 import Router, {useRouter} from "next/router";

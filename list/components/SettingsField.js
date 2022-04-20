@@ -1,5 +1,4 @@
 import styles from "../styles/Settings.module.css";
-import shared from "../../selector/styles/Shared.module.css";
 
 import React from "react";
 import PropTypes from "prop-types";

@@ -3,7 +3,7 @@ import React, {useMemo, useRef, useState} from "react";
 
 import styles from '../../list/styles/Row.module.css'
 import keyTemplate from "../../list/templates/keyTemplate";
-import {Button, Dropdown, DropdownOptions, ToolTip} from "@f-ui/core";
+import {Button, Dropdown, DropdownOptions} from "@f-ui/core";
 import {getField} from "../Filter";
 import Field from "./Field";
 

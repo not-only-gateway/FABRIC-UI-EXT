@@ -1,9 +1,8 @@
 import PropTypes from "prop-types";
 import {VARIANTS} from "./List";
 import styles from './styles/Tabs.module.css'
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo} from "react";
 import {Button} from "@f-ui/core";
-import DataActions from "../hooks/deps/dataActions";
 
 export default function ListTabs(props) {
     const {currentPage, setCurrentPage} = props.hook

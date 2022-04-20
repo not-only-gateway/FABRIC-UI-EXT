@@ -4,8 +4,6 @@ import React, {useMemo} from "react";
 import useHeader from "../hook/useHeader";
 import keyTemplate from "../templates/keyTemplate";
 import Filter from "../../filter/Filter";
-
-import Sort from "../../filter/components/Sort";
 import {Button, Dropdown, DropdownOption, DropdownOptions, ToolTip} from "@f-ui/core";
 import {VARIANTS} from "../List";
 
