@@ -97,7 +97,6 @@ export default function SortField(props) {
                                 disabled={props.value.type === 'object'}
                                 variant={"outlined"}
                                 onClick={() => {
-                                    const exists = props.sorts.findIndex(e => e.key === props.value.key)
                                     switch (currentSort) {
                                         case 'desc': {
                                             setCurrentSort('asc')

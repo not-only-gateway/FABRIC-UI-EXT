@@ -21,9 +21,7 @@ export default function Field(props) {
                 {props.selectedField !== null && props.selectedField !== undefined ?
                     (
                         <>
-
                             {getField(() => null)}
-
                             <Button
                                 styles={{marginTop: '8px'}}
                                 className={styles.buttonField}

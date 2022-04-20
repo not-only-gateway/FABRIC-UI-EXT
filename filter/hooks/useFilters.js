@@ -93,6 +93,7 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
                             handleChange={value => handleChange(value.target.value)}
                             value={filter.value}
                             placeholder={filter.label}
+                            noMargin={true}
                         />
 
 
@@ -179,6 +180,7 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
             case 'date': {
                 field = dateNumber((
                     <DateField
+                        noMargin={true}
                         placeholder={filter.label}
                         width={'100%'} disabled={false} required={false}
                         handleChange={value => handleChange(value)}
