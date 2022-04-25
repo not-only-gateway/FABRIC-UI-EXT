@@ -11,6 +11,7 @@
     border-radius: 5px;
     padding: 4px;
     background: var(--fabric-background-secondary);
+    color: var(--fabric-color-secondary);
 }
 
 .nav {

@@ -33,13 +33,12 @@ export default function SortField(props) {
 
                 variant={open ? 'filled' : "outlined"}
                 onClick={() => {
-                    console.log('HERE', props.selectedFilter)
                     props.setSelectedFilter(props.value)
                 }}
                 styles={{borderRightColor: !props.isLast ? 'var(--fabric-background-tertiary)' : undefined}}
             >
-                {field.icon}{field.label}
-                <span className={'material-icons-round'} style={{fontSize: '1.1rem'}}>launch</span>
+                 {field.label}
+                <span className={'material-icons-round'} style={{fontSize: '1rem'}}>more_vert</span>
                 {props.selectedFilter && props.selectedFilter.key === props.value.key ?
                     <Field
                         handleClose={() => props.setSelectedFilter(undefined)}
@@ -63,6 +62,7 @@ export default function SortField(props) {
             <Dropdown
                 className={styles.cell}
                 wrapperClassname={styles.cellWrapper}
+                hideArrow={true}
                 variant={open ? 'filled' : "outlined"}
                 onOpen={() => {
                     props.setSelectedFilter({...props.value, greater_than: true, contains: true})
@@ -71,12 +71,13 @@ export default function SortField(props) {
                 onClose={() => setOpen(false)}
                 styles={{borderRightColor: !props.isLast ? 'var(--fabric-background-tertiary)' : undefined}}
             >
-                {field.icon}{field.label}
+                {field.label}
+                <span className={'material-icons-round'} style={{fontSize: '1rem'}}>more_vert</span>
                 <DropdownOptions>
                     <div style={{display: 'grid', gap: '4px'}}>
 
                         <div className={styles.group}>
-                            <label className={styles.label}>Aplicar filtro</label>
+                            <label className={styles.label}>Aplicar pesquisa</label>
                             <Field
                                 handleClose={() => props.setSelectedFilter(undefined)}
                                 setFilters={props.setFilters}
@@ -140,7 +141,7 @@ export default function SortField(props) {
 
 SortField.propTypes = {
     setSelectedFilter: PropTypes.func.isRequired,
-    selectedFilter: PropTypes.object.isRequired,
+    selectedFilter: PropTypes.object,
     selectorOpen: PropTypes.bool.isRequired,
     setSelectorOpen: PropTypes.func.isRequired,
     applyFilter: PropTypes.func.isRequired,

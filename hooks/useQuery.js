@@ -7,12 +7,12 @@ import useRequest from "./useRequest";
 const init = (e) => {
     return e
 }
-export default function useQuery(props) {
+export default function useQuery(props, initialSort=[]) {
     const [data, dispatchData] = useReducer(dataReducer, [], init)
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(0)
     const [filters, setFilters] = useState([])
-    const [sorts, setSorts] = useState([])
+    const [sorts, setSorts] = useState(initialSort)
     const [hasMore, setHasMore] = useState(false)
     const {make} = useRequest(false)
     const fetchParams = (page = undefined) => {

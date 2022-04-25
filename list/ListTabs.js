@@ -10,7 +10,6 @@ export default function ListTabs(props) {
     useEffect(() => {
         setCurrentTab(0)
     }, [props.variant, props.hook.filters])
-    console.log(props.hook.hasMore, currentPage - 1 === currentTab)
     const p = useMemo(() => {
         return currentPage - 1 >= 0 ? currentPage - 1 : 0
     }, [currentPage])

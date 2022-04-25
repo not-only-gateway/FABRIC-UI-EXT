@@ -60,25 +60,27 @@ export default function Wrapper(props) {
         <div className={styles.loadWrapper} style={{display: loading ? undefined : 'none'}}>
             <div className={styles.loading}/>
         </div>
-        {onAuth ? (<Auth
-            theme={theme}
-            host={props.host}
-            isRequired={requiredAuth}
-            handleClose={() => {
-                setOnAuth(false)
-                refreshProfile()
-            }}
-        />) : (<>
+        {onAuth ? (
+            <Auth
+                theme={theme}
+                host={props.host}
+                isRequired={requiredAuth}
+                handleClose={() => {
+                    setOnAuth(false)
+                    refreshProfile()
+                }}
+            />
+        ) : (<>
             <Navigation>
                 <NavigationGroup justify={'start'}>
                     <img
                         title={'SIS-AEB'}
                         className={styles.logo}
                         onClick={() => {
-                        setOnProfile(false)
-                        if (!requiredAuth) setOnAuth(false)
-                        router.push('/')
-                    }}
+                            setOnProfile(false)
+                            if (!requiredAuth) setOnAuth(false)
+                            router.push('/')
+                        }}
                         src={theme + '.png'}
                         alt={'logo'}
                     />

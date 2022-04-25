@@ -29,7 +29,7 @@ export default function Sort(props) {
 
 Sort.propTypes = {
     setSelectedFilter: PropTypes.func.isRequired,
-    selectedFilter: PropTypes.object.isRequired,
+    selectedFilter: PropTypes.object,
     selectorOpen: PropTypes.bool.isRequired,
     setSelectorOpen: PropTypes.func.isRequired,
     applyFilter: PropTypes.func.isRequired,
