@@ -1,13 +1,16 @@
 import styles from '../styles/SelectorModal.module.css'
-import React, {useMemo, useState} from "react";
+import React, {useContext, useMemo, useState} from "react";
 import PropTypes from "prop-types";
 import {Button, DataRow, Modal, DataProvider, useListData} from "@f-ui/core";
 import ListTabs from "../../list/ListTabs";
 import {VARIANTS} from "../../list/List";
 import Element from "../../list/components/Element";
+import {DropdownProvider} from "@f-ui/core";
 
 export default function SelectorModal(props) {
     const [currentTab, setCurrentTab] = useState(0)
+    const dropdownContext = useContext(DropdownProvider)
+
     const toRender = useMemo(() => {
         return props.hook.data.slice(currentTab * 15, currentTab * 15 + 15)
     }, [props.hook.data, currentTab])
@@ -29,7 +32,8 @@ export default function SelectorModal(props) {
                 setOnValidation={() => null}
                 onRowClick={() => {
                     props.handleChange(e.data)
-                    props.setOpen(false)
+                    if (dropdownContext.setOpen)
+                        dropdownContext.setOpen(false)
                 }}
                 variant={VARIANTS.EMBEDDED}
                 isLast={index === props.hook.data.length - 1}
@@ -44,42 +48,15 @@ export default function SelectorModal(props) {
 
 
     return (
-
-        <Modal
-            open={props.open}
-            handleClose={() => {
-                props.setOpen(false)
-                if (props.handleClose)
-                    props.handleClose()
-            }}
-
-            blurIntensity={'1px'}
+        <div
             className={styles.wrapper}
         >
 
+            <div style={{display: 'flex', width: '100%', alignItems: 'center', gap: '4px'}}>
 
-                <div className={styles.headerButtons}>
-                    <div className={styles.header}>
-                        {props.label}
-                    </div>
+                {props.value && Object.keys(props.value).length > 0 ?
 
-                    <Button
-                        variant={'outlined'}
-                        onClick={() => props.hook.clean()}
-                        className={styles.headerButton}
-                        styles={{marginRight: '4px'}}
-                        attributes={{
-                            title: 'Recarregar dados'
-                        }}
-                    >
-                        <span className="material-icons-round" style={{fontSize: '1.1rem'}}>refresh</span>
-                    </Button>
-
-
-                </div>
-
-                <div style={{display: 'flex', width: '100%', alignItems: 'center'}}>
-                    {props.value && Object.keys(props.value).length > 0 ? <DataRow
+                    <DataRow
                         onClick={() => {
                             if (props.onClick) props.onClick()
 
@@ -89,8 +66,9 @@ export default function SelectorModal(props) {
                             minHeight: '45px',
                             padding: 0,
                             width: '100%',
-                            borderRadius: '5px 0  0 5px',
-                            background: 'var(--fabric-border-primary)'
+                            background: 'var(--fabric-background-tertiary)',
+                            borderColor: 'var(--fabric-accent-color)',
+                            borderWidth: '2px'
                         }}
                         selfContained={true}
                     /> : <DataRow
@@ -108,27 +86,38 @@ export default function SelectorModal(props) {
                         object={{k: 'Nada selecionado'}}
                         selfContained={false}
                     />}
-                    <Button
-                        variant={'outlined'}
-                        onClick={() => {
-                            props.handleChange(null)
-                            props.setOpen(false)
-                        }}
-                        styles={{
-                            '--fabric-accent-color': '#ff5555',
-                            height: '100%',
-                            borderRadius: '0 5px 5px 0  ',
-                            borderLeftColor: 'var(--fabric-background-tertiary)',
-                            display: props.value && Object.keys(props.value).length > 0 ? undefined : 'none'
-                        }}
-                        className={styles.headerButton}
-                        disabled={!props.value}
-                        attributes={{
-                            title: 'Limpar selecionado'
-                        }}>
-                        <span className="material-icons-round" style={{fontSize: '1.1rem'}}>clear</span>
-                    </Button>
-                </div>
+
+                <Button
+                    variant={'filled'}
+                    onClick={() => {
+                        props.handleChange(null)
+                    }}
+                    styles={{
+                        '--fabric-accent-color': '#ff5555',
+                        height: '100%',
+                        background: 'var(--fabric-accent-color)',
+                        display: props.value && Object.keys(props.value).length > 0 ? undefined : 'none'
+                    }}
+                    className={styles.headerButton}
+                    disabled={!props.value}
+                    attributes={{
+                        title: 'Limpar selecionado'
+                    }}>
+                    <span className="material-icons-round" style={{fontSize: '1.1rem'}}>delete</span>
+                </Button>
+                <Button
+                    variant={'outlined'}
+                    onClick={() => props.hook.clean()}
+                    className={styles.headerButton}
+                    // styles={{                        background: 'var(--fabric-accent-color)',}}
+                    attributes={{
+
+                        title: 'Recarregar dados'
+                    }}
+                >
+                    <span className="material-icons-round" style={{fontSize: '1.1rem'}}>refresh</span>
+                </Button>
+            </div>
             <DataProvider.Provider value={hook}>
 
                 <div className={styles.rows}>
@@ -145,14 +134,13 @@ export default function SelectorModal(props) {
                     }
                 </div>
             </DataProvider.Provider>
-        </Modal>)
+        </div>)
 
 
 }
 SelectorModal.propTypes = {
     data: PropTypes.array, keys: PropTypes.array, createOption: PropTypes.bool,
 
-    open: PropTypes.bool, setOpen: PropTypes.func,
 
     cleanState: PropTypes.func, value: PropTypes.object, handleChange: PropTypes.func,
 

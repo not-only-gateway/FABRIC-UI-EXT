@@ -7,7 +7,7 @@ import useRequest from "./useRequest";
 const init = (e) => {
     return e
 }
-export default function useQuery(props, initialSort=[]) {
+export default function useQuery(props, initialSort=[], customFetch) {
     const [data, dispatchData] = useReducer(dataReducer, [], init)
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(0)
@@ -36,12 +36,17 @@ export default function useQuery(props, initialSort=[]) {
     }
     const fetchData = (page = undefined) => {
         setLoading(true)
-        make(fetchParams(page))
-            .then(res => {
-                dispatchData({type: ACTIONS.PUSH, payload: res.data})
-                setHasMore(res.data.length > 0)
-                setLoading(false)
-            })
+        let promise
+        if(customFetch)
+            promise = customFetch(page, filters, sorts)
+        else
+            promise = make(fetchParams(page))
+
+        promise.then(res => {
+            dispatchData({type: ACTIONS.PUSH, payload: res.data})
+            setHasMore(res.data.length > 0)
+            setLoading(false)
+        })
             .catch(() => {
                 setLoading(false)
             })

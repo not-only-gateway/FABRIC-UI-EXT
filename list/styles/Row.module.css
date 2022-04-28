@@ -12,9 +12,12 @@
 
 
 .cell {
-    background: var(--fabric-background-primary);
+    color: var(--fabric-color-secondary);
+    font-size: .75rem;
+
+    background: var(--fabric-border-primary) !important;
     padding: 0 4px !important;
-    color: inherit;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -29,6 +32,16 @@
     color: #999999 !important;
 }
 
+.option{
+    width: 20px;
+    height: 20px;
+    padding: 0 !important;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
 .overflow {
     overflow: hidden;
     max-width: 100%;
@@ -98,6 +111,4 @@
 .group {
     padding: 4px;
     border-radius: 5px;
-
-    background: var(--fabric-background-tertiary);
 }

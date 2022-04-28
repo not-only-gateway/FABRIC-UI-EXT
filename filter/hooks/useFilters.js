@@ -94,6 +94,10 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
                             value={filter.value}
                             placeholder={filter.label}
                             noMargin={true}
+                            onEnter={() => {
+                                if (filter.value.length > 0)
+                                    applyFilter()
+                            }}
                         />
 
 
@@ -145,6 +149,10 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
                         handleChange={value => handleChange(value.target.value)}
                         type={'number'} placeholder={filter.label}
                         value={filter.value}
+                        onEnter={() => {
+                            if (filter.value.toString().length > 0)
+                                applyFilter()
+                        }}
                     />
                 ))
                 break
@@ -152,7 +160,6 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
             case 'object': {
                 field = (
                     <Selector
-
                         openOnMount={true}
                         query={query}
                         keys={query && query.keys ? query.keys : []}
@@ -185,6 +192,11 @@ export default function useFilter(filter, setFilter, setSelectorOpen, selectorOp
                         width={'100%'} disabled={false} required={false}
                         handleChange={value => handleChange(value)}
                         value={filter.value}
+                        onEnter={() => {
+                            let timestamp = new Date(filter.value);
+                            if (timestamp.toString() !== 'Invalid Date')
+                                applyFilter()
+                        }}
                     />
                 ))
                 break
