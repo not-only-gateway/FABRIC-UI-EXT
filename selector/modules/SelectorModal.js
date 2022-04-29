@@ -1,11 +1,10 @@
 import styles from '../styles/SelectorModal.module.css'
 import React, {useContext, useMemo, useState} from "react";
 import PropTypes from "prop-types";
-import {Button, DataRow, Modal, DataProvider, useListData} from "@f-ui/core";
+import {Button, DataProvider, DataRow, DropdownProvider, useListData} from "@f-ui/core";
 import ListTabs from "../../list/ListTabs";
 import {VARIANTS} from "../../list/List";
 import Element from "../../list/components/Element";
-import {DropdownProvider} from "@f-ui/core";
 
 export default function SelectorModal(props) {
     const [currentTab, setCurrentTab] = useState(0)
@@ -29,6 +28,7 @@ export default function SelectorModal(props) {
     const nodes = toRender.map((e, index) => (
         <React.Fragment key={e.id + '-list-row'}>
             <Element
+                highlight={props.value === e.data}
                 setOnValidation={() => null}
                 onRowClick={() => {
                     props.handleChange(e.data)
@@ -40,7 +40,7 @@ export default function SelectorModal(props) {
                 data={e.data}
                 page={currentTab}
                 fetchPage={props.hook.currentPage}
-
+                linearColor={true}
                 index={index + currentTab * 15}
             />
         </React.Fragment>

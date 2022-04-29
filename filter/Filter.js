@@ -3,7 +3,7 @@ import styles from "./styles/Field.module.css";
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import keyTemplate from "../list/templates/keyTemplate";
-import {Button, ToolTip} from "@f-ui/core";
+import {Button} from "@f-ui/core";
 import Header from "./components/Header";
 
 export default function Filter(props) {

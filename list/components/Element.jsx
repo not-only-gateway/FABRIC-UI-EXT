@@ -49,7 +49,7 @@ export default function Element(props) {
                 className={styles.row}
                 cellStyles={{maxHeight: '50vh'}}
                 styles={{
-                    background: props.variant === VARIANTS.CARDS ? 'var(--fabric-background-secondary)' : props.index % 2 === 0 ? 'var(--fabric-background-tertiary)' : undefined,
+                    background: props.highlight ? 'var(--fabric-accent-color)' : props.variant === VARIANTS.CARDS || props.linearColor ? 'var(--fabric-background-secondary)' : props.index % 2 === 0 ? 'var(--fabric-background-tertiary)' : undefined,
                     borderRadius: props.variant === VARIANTS.CARDS ? undefined : props.index === 0 ? '5px 5px 0 0' : props.isLast ? '0 0 5px 5px' : 0
                 }}
                 index={props.index}
@@ -60,6 +60,9 @@ export default function Element(props) {
 }
 
 Element.propTypes = {
+    linearColor: PropTypes.bool,
+    highlight: PropTypes.bool,
+
     variant: PropTypes.number,
     setOnValidation: PropTypes.func,
     onRowClick: PropTypes.func,
