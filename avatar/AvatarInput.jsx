@@ -12,7 +12,6 @@ export default function AvatarInput(props){
                    accept={['image/png', 'image/jpeg', 'jpg']}
                    multiple={false} ref={ref}
                    onChange={event => {
-
                        const img = new Image()
                        img.src = URL.createObjectURL(event.target.files[0])
                        img.onload = () => {
