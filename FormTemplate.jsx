@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import {EmbeddedForm, useFormData} from "@f-ui/core";
-import Selector from './selector/Selector'
+import {Selector} from '@f-ui/query'
 import AvatarInput from "./avatar/AvatarInput";
 
 export default function FormTemplate(props) {

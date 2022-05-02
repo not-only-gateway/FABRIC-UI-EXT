@@ -9,7 +9,7 @@ import Auth from "./components/Auth";
 import Navigation from "../nav/Navigation";
 import NavigationGroup from "../nav/NavigationGroup";
 import Profile from "./components/Profile";
-import Avatar from "../avatar/Avatar";
+import {Avatar} from "@f-ui/query";
 import Head from "next/head";
 
 const cookies = new Cookies()
@@ -48,8 +48,11 @@ export default function Wrapper(props) {
     }, [])
 
 
-    return (<Fabric theme={theme} className={styles.container}
-                    styles={{background: onProfile ? 'var(--fabric-background-tertiary)' : undefined}}>
+    return (<Fabric
+        accentColor={'#0095ff'}
+        theme={theme} className={styles.container}
+
+        styles={{background: onProfile ? 'var(--fabric-background-tertiary)' : undefined}}>
         <Head>
             <title>
                 {props.titles ? props.titles[router.pathname] : 'SISTEMA'}

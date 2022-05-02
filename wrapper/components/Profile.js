@@ -2,12 +2,10 @@ import PropTypes from "prop-types";
 import styles from '../styles/Profile.module.css'
 import {Button, Dropdown, DropdownOption, DropdownOptions, Tab, Tabs, ToolTip} from "@f-ui/core";
 import {useRef, useState} from "react";
-import useRequest from "../../hooks/useRequest";
+import {Avatar, useRequest} from "@f-ui/query";
 import Cookies from "universal-cookie/lib";
 import FormTemplate from "../../FormTemplate";
-import Avatar from "../../avatar/Avatar";
 
-const cookies = new Cookies()
 export default function Profile(props) {
     const {profileData} = props
     const [open, setOpen] = useState(0)
@@ -32,7 +30,8 @@ export default function Profile(props) {
                            make({
                                url: props.host + '/api/user/' + profileData.user_email,
                                method: 'PUT',
-                               data: {...profileData, pic: canvas.toDataURL()}
+                               data: {...profileData, pic: canvas.toDataURL()},
+                               headers: (new Cookies()).get('jwt')
                            })
                                .then(() => props.refreshProfile())
                                .catch()

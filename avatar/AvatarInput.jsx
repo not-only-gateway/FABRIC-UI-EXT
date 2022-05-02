@@ -1,5 +1,5 @@
 import styles from "../wrapper/styles/Profile.module.css";
-import Avatar from "./Avatar";
+import {Avatar} from "@f-ui/query";
 import {Dropdown, DropdownOption, DropdownOptions} from "@f-ui/core";
 import {useRef} from "react";
 import PropTypes from "prop-types";

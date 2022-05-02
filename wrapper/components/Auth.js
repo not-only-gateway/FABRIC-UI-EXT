@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import styles from '../styles/Auth.module.css'
 import {Button, TextField} from "@f-ui/core";
 import {useState} from "react";
-import useRequest from "../../hooks/useRequest";
+import {useRequest} from "@f-ui/query";
 import Cookies from "universal-cookie/lib";
 
 const cookies = new Cookies()
@@ -18,7 +18,8 @@ export default function Auth(props) {
             const res = await make({
                 url: props.host + '/api/authentication',
                 method: 'POST',
-                data: {...form, email: form.email + '@aeb.gov.br'}
+                data: {...form, email: form.email + '@aeb.gov.br'},
+                headers: (new Cookies()).get('jwt')
             })
             if (res?.status === 202) {
                 console.log(res.data)
