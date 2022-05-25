@@ -11,6 +11,8 @@ import NavigationGroup from "../nav/NavigationGroup";
 import Profile from "./components/Profile";
 import {Avatar} from "@f-ui/query";
 import Head from "next/head";
+import AdminContext from "./AdminContext";
+
 
 const cookies = new Cookies()
 export default function Wrapper(props) {
@@ -36,154 +38,174 @@ export default function Wrapper(props) {
             setRequiredAuth(true)
         } else setRequiredAuth(false)
     }
+    const [admToken, setAdmToken] = useState()
     useEffect(() => {
         refresh()
     }, [router.pathname])
     const [loading, setLoading] = useState(false)
     useEffect(() => {
+        setAdmToken(sessionStorage.getItem('token'))
         Router.events.on('routeChangeStart', () => {
             setLoading(true)
         })
         Router.events.on('routeChangeComplete', () => setLoading(false))
     }, [])
 
+    const isADM = useMemo(() => {
+        if (typeof window !== 'undefined')
+            return admToken !== undefined && admToken !== null
+        else
+            return false
+    }, [admToken])
 
-    return (<Fabric
-        accentColor={'#0095ff'}
-        theme={theme} className={styles.container}
+    return (
+        <AdminContext.Provider value={isADM}>
+            <Fabric
+                accentColor={'#0095ff'}
+                theme={theme} className={styles.container}
 
-        styles={{background: onProfile ? 'var(--fabric-background-tertiary)' : undefined}}>
-        <Head>
-            <title>
-                {props.titles ? props.titles[router.pathname] : 'SISTEMA'}
-            </title>
+                styles={{background: onProfile ? 'var(--fabric-background-tertiary)' : undefined}}>
+                <Head>
+                    <title>
+                        {props.titles ? props.titles[router.pathname] : 'SISTEMA'}
+                    </title>
 
-            <link rel='icon' href={'/dark-small.png'} type='image/x-icon'/>
-        </Head>
-        <div className={styles.loadWrapper} style={{display: loading ? undefined : 'none'}}>
-            <div className={styles.loading}/>
-        </div>
-        {onAuth ? (
-            <Auth
-                theme={theme}
-                host={props.host}
-                isRequired={requiredAuth}
-                handleClose={() => {
-                    setOnAuth(false)
-                    refreshProfile()
-                }}
-            />
-        ) : (<>
-            <Navigation>
-                <NavigationGroup justify={'start'}>
-                    <img
-                        title={'SIS-AEB'}
-                        className={styles.logo}
-                        onClick={() => {
-                            setOnProfile(false)
-                            if (!requiredAuth) setOnAuth(false)
-                            router.push('/')
+                    <link rel='icon' href={'/dark-small.png'} type='image/x-icon'/>
+                </Head>
+                <div className={styles.loadWrapper} style={{display: loading ? undefined : 'none'}}>
+                    <div className={styles.loading}/>
+                </div>
+                {onAuth ? (
+                    <Auth
+                        admToken={admToken}
+
+                        setAdmToken={setAdmToken}
+                        theme={theme}
+                        host={props.host}
+                        isRequired={requiredAuth}
+                        handleClose={() => {
+                            setOnAuth(false)
+                            refreshProfile()
                         }}
-                        src={theme + '.png'}
-                        alt={'logo'}
                     />
-                    {start.map((p, i) => (<React.Fragment key={i + '-wrapper-option-start'}>
-                        {i === 0 ? <div className={styles.divider}/> : null}
-                        <Button
-                            className={styles.button}
-                            variant={"minimal-horizontal"}
-                            highlight={router.pathname === p.path}
-                            styles={{padding: '0 8px', width: 'fit-content'}}
-                            onClick={() => router.push(p.path)}
-                        >
-                            {p.icon}
-                            {p.label}
-                        </Button>
-                        {i < start.length - 1 ? <div className={styles.divider}/> : null}
-                    </React.Fragment>))}
-                </NavigationGroup>
-
-                <NavigationGroup justify={'end'}>
-                    {end.map((p, i) => (<React.Fragment key={i + '-wrapper-option-end'}>
-                        <Button
-                            className={styles.button}
-                            variant={"minimal-horizontal"}
-                            highlight={router.pathname === p.path}
-                            styles={{padding: '0 8px', width: 'fit-content'}}
-                            onClick={() => router.push(p.path)}
-                        >
-                            {p.icon}
-                            {p.label}
-                        </Button>
-                        {i < end.length - 1 ? <div className={styles.divider}/> : null}
-                    </React.Fragment>))}
-                    <Button
-                        className={styles.button}
-                        onClick={() => {
-                            setTheme(theme === 'dark' ? 'light' : 'dark')
-                            localStorage.setItem('theme', theme === 'dark' ? 'light' : 'dark')
-                        }}>
-                        <span className={'material-icons-round'}>{theme + '_mode'}</span>
-                    </Button>
-                    <div className={styles.divider}/>
-                    {logged && Object.keys(profileData).length > 0 ? <Dropdown className={styles.dropdown}>
-                        <Avatar alt={'Img'} src={profileData.pic}/>
-                        {profileData.name.split(' ').shift()}
-                        <DropdownOptions>
-                            <div className={styles.profile}>
-                                <Avatar alt={'Img'} src={profileData.pic} size={"medium"}/>
-                                {profileData.name}
-                                <div className={styles.emailWrapper}>
-                                    {profileData.user_email}
-                                </div>
-                            </div>
-                            <DropdownOption
-                                option={{
-                                    onClick: () => {
-                                        refreshProfile()
-                                        setOnProfile(true)
-                                    }, icon: <span className={'material-icons-round'}
-                                                   style={{fontSize: '1.1rem'}}>edit</span>, label: 'Meu perfil'
+                ) : (<>
+                    <Navigation>
+                        <NavigationGroup justify={'start'}>
+                            <img
+                                title={'SIS-AEB'}
+                                className={styles.logo}
+                                onClick={() => {
+                                    setOnProfile(false)
+                                    if (!requiredAuth) setOnAuth(false)
+                                    router.push('/')
                                 }}
-                                styles={{
-                                    borderBottom: 'var(--fabric-border-primary) 1px solid', padding: '2px 0'
-                                }}
+                                src={theme + '.png'}
+                                alt={'logo'}
                             />
-                            <DropdownOption
-                                option={{
-                                    onClick: () => {
-                                        localStorage.removeItem('email')
-                                        localStorage.removeItem('exp')
-                                        cookies.remove('jwt')
+                            {start.map((p, i) => (<React.Fragment key={i + '-wrapper-option-start'}>
+                                {i === 0 ? <div className={styles.divider}/> : null}
+                                <Button
+                                    className={styles.button}
+                                    variant={"minimal-horizontal"}
+                                    highlight={router.pathname === p.path}
+                                    styles={{padding: '0 8px', width: 'fit-content'}}
+                                    onClick={() => router.push(p.path)}
+                                >
+                                    {p.icon}
+                                    {p.label}
+                                </Button>
+                                {i < start.length - 1 ? <div className={styles.divider}/> : null}
+                            </React.Fragment>))}
+                        </NavigationGroup>
 
-                                        refresh()
-                                    }, icon: <span className={'material-icons-round'}
-                                                   style={{fontSize: '1.1rem'}}>logout</span>, label: 'Sair'
-                                }}
-                                styles={{
-                                    borderBottom: 'var(--fabric-border-primary) 1px solid', padding: '2px 0'
-                                }}
-                            />
-                        </DropdownOptions>
-                    </Dropdown> : <Button
-                        className={styles.button}
+                        <NavigationGroup justify={'end'}>
+                            {end.map((p, i) => (<React.Fragment key={i + '-wrapper-option-end'}>
+                                <Button
+                                    className={styles.button}
+                                    variant={"minimal-horizontal"}
+                                    highlight={router.pathname === p.path}
+                                    styles={{padding: '0 8px', width: 'fit-content'}}
+                                    onClick={() => router.push(p.path)}
+                                >
+                                    {p.icon}
+                                    {p.label}
+                                </Button>
+                                {i < end.length - 1 ? <div className={styles.divider}/> : null}
+                            </React.Fragment>))}
 
-                        onClick={() => setOnAuth(true)}>
-                        <span className={'material-icons-round'}>login</span>
-                    </Button>}
+                            <span className={'material-icons-round'} title={'Administrador'}
+                                  style={{fontSize: '1.1rem'}}>lock_clock</span>
+                            <div className={styles.divider}/>
+                            <Button
+                                className={styles.button}
+                                onClick={() => {
+                                    setTheme(theme === 'dark' ? 'light' : 'dark')
+                                    localStorage.setItem('theme', theme === 'dark' ? 'light' : 'dark')
+                                }}>
+                                <span className={'material-icons-round'}>{theme + '_mode'}</span>
+                            </Button>
+                            <div className={styles.divider}/>
+                            {logged && Object.keys(profileData).length > 0 ? <Dropdown className={styles.dropdown}>
+                                <Avatar alt={'Img'} src={profileData.pic}/>
+                                {profileData.name.split(' ').shift()}
+                                <DropdownOptions>
+                                    <div className={styles.profile}>
+                                        <Avatar alt={'Img'} src={profileData.pic} size={"medium"}/>
+                                        {profileData.name}
+                                        <div className={styles.emailWrapper}>
+                                            {profileData.user_email}
+                                        </div>
+                                    </div>
+                                    <DropdownOption
+                                        option={{
+                                            onClick: () => {
+                                                refreshProfile()
+                                                setOnProfile(true)
+                                            }, icon: <span className={'material-icons-round'}
+                                                           style={{fontSize: '1.1rem'}}>edit</span>, label: 'Meu perfil'
+                                        }}
+                                        styles={{
+                                            borderBottom: 'var(--fabric-border-primary) 1px solid', padding: '2px 0'
+                                        }}
+                                    />
+                                    <DropdownOption
+                                        option={{
+                                            onClick: () => {
+                                                localStorage.removeItem('email')
+                                                localStorage.removeItem('exp')
+                                                cookies.remove('jwt')
+                                                setAdmToken(undefined)
+                                                sessionStorage.removeItem('token')
+                                                refresh()
+                                            }, icon: <span className={'material-icons-round'}
+                                                           style={{fontSize: '1.1rem'}}>logout</span>, label: 'Sair'
+                                        }}
+                                        styles={{
+                                            borderBottom: 'var(--fabric-border-primary) 1px solid', padding: '2px 0'
+                                        }}
+                                    />
+                                </DropdownOptions>
+                            </Dropdown> : <Button
+                                className={styles.button}
+                                onClick={() => setOnAuth(true)}
+                            >
+                                <span className={'material-icons-round'}>login</span>
+                            </Button>}
 
-                </NavigationGroup>
+                        </NavigationGroup>
 
-            </Navigation>
-            <Switcher openChild={onProfile ? 0 : 1} className={styles.content}>
-                <Profile
-                    refreshProfile={refreshProfile}
-                    host={props.host} handleClose={() => setOnProfile(false)}
-                    profileData={profileData}/>
-                {props.children}
-            </Switcher>
-        </>)}
-    </Fabric>)
+                    </Navigation>
+                    <Switcher openChild={onProfile ? 0 : 1} className={styles.content}>
+                        <Profile
+                            refreshProfile={refreshProfile}
+                            host={props.host} handleClose={() => setOnProfile(false)}
+                            profileData={profileData}/>
+                        {props.children}
+                    </Switcher>
+                </>)}
+            </Fabric>
+        </AdminContext.Provider>
+    )
 }
 Wrapper.propTypes = {
     titles: PropTypes.object, children: PropTypes.node, pages: PropTypes.arrayOf(PropTypes.shape({

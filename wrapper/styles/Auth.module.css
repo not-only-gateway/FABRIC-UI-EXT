@@ -10,7 +10,7 @@
 
 .inputs {
     width: clamp(100px, 25%, 350px);
-    height: clamp(100px, 35%, 500px);
+    height: fit-content;
     background: var(--fabric-background-primary);
     overflow: hidden;
     padding: 12px;
@@ -28,21 +28,37 @@
 
 .button {
     width: calc(100% - 16px);
+    gap: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
 
-    position: absolute !important;
-    bottom: 8px;
+}
 
+.overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .logo {
     width: 50%;
 }
 
-.hideButton{
-width: 35px;
+.hideButton {
+    width: 35px;
 
 
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.inline {
+    padding-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
 }
