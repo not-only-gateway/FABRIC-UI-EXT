@@ -27,5 +27,5 @@ export default function useProfile(host) {
         refreshProfile()
     }, [])
 
-    return {onProfile, setOnProfile, profileData, logged, setLogged, refreshProfile}
+    return {onProfile, setOnProfile, profileData,setProfileData, logged, setLogged, refreshProfile}
 }

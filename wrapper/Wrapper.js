@@ -28,7 +28,15 @@ export default function Wrapper(props) {
     const start = useMemo(() => {
         return props.pages.filter(p => p.align !== 'end')
     }, [props.pages])
-    const {onProfile, setOnProfile, profileData, logged, setLogged, refreshProfile} = useProfile(props.host)
+    const {
+        onProfile,
+        setOnProfile,
+        profileData,
+        setProfileData,
+        logged,
+        setLogged,
+        refreshProfile
+    } = useProfile(props.host)
     const [onAuth, setOnAuth] = useState(false)
     const [requiredAuth, setRequiredAuth] = useState(false)
     const refresh = () => {
@@ -53,7 +61,7 @@ export default function Wrapper(props) {
 
     const isADM = useMemo(() => {
         if (typeof window !== 'undefined')
-            return admToken !== undefined && admToken !== null
+            return sessionStorage.getItem('token')
         else
             return false
     }, [admToken])
@@ -67,7 +75,7 @@ export default function Wrapper(props) {
                 styles={{background: onProfile ? 'var(--fabric-background-tertiary)' : undefined}}>
                 <Head>
                     <title>
-                        {props.titles ? props.titles[router.pathname] : 'SISTEMA'}
+                        {props.titles ? onAuth ? props.titles.auth : props.titles[router.pathname] : undefined}
                     </title>
 
                     <link rel='icon' href={'/dark-small.png'} type='image/x-icon'/>
@@ -105,6 +113,8 @@ export default function Wrapper(props) {
                             {start.map((p, i) => (<React.Fragment key={i + '-wrapper-option-start'}>
                                 {i === 0 ? <div className={styles.divider}/> : null}
                                 <Button
+                                    attributes={{title: p.requireAdmin && !isADM ? 'Requer acesso de administrador' : undefined}}
+                                    disabled={p.requireAdmin && !isADM}
                                     className={styles.button}
                                     variant={"minimal-horizontal"}
                                     highlight={router.pathname === p.path}
@@ -121,6 +131,7 @@ export default function Wrapper(props) {
                         <NavigationGroup justify={'end'}>
                             {end.map((p, i) => (<React.Fragment key={i + '-wrapper-option-end'}>
                                 <Button
+                                    disabled={p.requireAdmin && !isADM}
                                     className={styles.button}
                                     variant={"minimal-horizontal"}
                                     highlight={router.pathname === p.path}
@@ -133,8 +144,8 @@ export default function Wrapper(props) {
                                 {i < end.length - 1 ? <div className={styles.divider}/> : null}
                             </React.Fragment>))}
 
-                            <span className={'material-icons-round'} title={'Administrador'}
-                                  style={{fontSize: '1.1rem'}}>lock_clock</span>
+                            {isADM ? <span className={'material-icons-round'} title={'Administrador'}
+                                           style={{fontSize: '1.1rem'}}>lock_clock</span> : null}
                             <div className={styles.divider}/>
                             <Button
                                 className={styles.button}
@@ -171,6 +182,7 @@ export default function Wrapper(props) {
                                     <DropdownOption
                                         option={{
                                             onClick: () => {
+                                                setProfileData({})
                                                 localStorage.removeItem('email')
                                                 localStorage.removeItem('exp')
                                                 cookies.remove('jwt')
@@ -208,12 +220,14 @@ export default function Wrapper(props) {
     )
 }
 Wrapper.propTypes = {
-    titles: PropTypes.object, children: PropTypes.node, pages: PropTypes.arrayOf(PropTypes.shape({
+    titles: PropTypes.object, children: PropTypes.node,
+    pages: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string,
         path: PropTypes.string,
         icon: PropTypes.node,
         align: PropTypes.oneOf(['start', 'end']),
-        requireAuth: PropTypes.bool
+        requireAuth: PropTypes.bool,
+        requireAdmin: PropTypes.bool,
     })), host: PropTypes.string.isRequired
 
 }
