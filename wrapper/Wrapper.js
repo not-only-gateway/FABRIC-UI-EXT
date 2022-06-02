@@ -22,12 +22,7 @@ export default function Wrapper(props) {
         const t = localStorage.getItem('theme')
         setTheme(t ? t : 'dark')
     }, [])
-    const end = useMemo(() => {
-        return props.pages.filter(p => p.align === 'end')
-    }, [props.pages])
-    const start = useMemo(() => {
-        return props.pages.filter(p => p.align !== 'end')
-    }, [props.pages])
+
     const {
         onProfile,
         setOnProfile,
@@ -59,15 +54,16 @@ export default function Wrapper(props) {
         Router.events.on('routeChangeComplete', () => setLoading(false))
     }, [])
 
-    const isADM = useMemo(() => {
-        if (typeof window !== 'undefined')
-            return sessionStorage.getItem('token')
-        else
-            return false
-    }, [admToken])
+
+    const end = useMemo(() => {
+        return props.pages.filter(p => p.align === 'end')
+    }, [props.pages])
+    const start = useMemo(() => {
+        return props.pages.filter(p => p.align !== 'end')
+    }, [props.pages])
 
     return (
-        <AdminContext.Provider value={isADM}>
+        <AdminContext.Provider value={admToken !== undefined && admToken !== null}>
             <Fabric
                 accentColor={'#0095ff'}
                 theme={theme} className={styles.container}
@@ -110,28 +106,30 @@ export default function Wrapper(props) {
                                 src={theme + '.png'}
                                 alt={'logo'}
                             />
-                            {start.map((p, i) => (<React.Fragment key={i + '-wrapper-option-start'}>
-                                {i === 0 ? <div className={styles.divider}/> : null}
-                                <Button
-                                    attributes={{title: p.requireAdmin && !isADM ? 'Requer acesso de administrador' : undefined}}
-                                    disabled={p.requireAdmin && !isADM}
-                                    className={styles.button}
-                                    variant={"minimal-horizontal"}
-                                    highlight={router.pathname === p.path}
-                                    styles={{padding: '0 8px', width: 'fit-content'}}
-                                    onClick={() => router.push(p.path)}
-                                >
-                                    {p.icon}
-                                    {p.label}
-                                </Button>
-                                {i < start.length - 1 ? <div className={styles.divider}/> : null}
-                            </React.Fragment>))}
+                            {start.map((p, i) => (
+                                <React.Fragment key={i + '-wrapper-option-start'}>
+                                    {i === 0 ?
+                                        <div className={styles.divider}/> : null}
+                                    <Button
+                                        attributes={{title: p.requireAdmin && !admToken ? 'Requer acesso de administrador' : undefined}}
+                                        disabled={p.requireAdmin && !admToken}
+                                        className={styles.button}
+                                        variant={"minimal-horizontal"}
+                                        highlight={router.pathname === p.path}
+                                        styles={{padding: '0 8px', width: 'fit-content'}}
+                                        onClick={() => router.push(p.path)}
+                                    >
+                                        {p.icon}
+                                        {p.label}
+                                    </Button>
+                                    {i < start.length - 1 ? <div className={styles.divider}/> : null}
+                                </React.Fragment>))}
                         </NavigationGroup>
 
                         <NavigationGroup justify={'end'}>
                             {end.map((p, i) => (<React.Fragment key={i + '-wrapper-option-end'}>
                                 <Button
-                                    disabled={p.requireAdmin && !isADM}
+                                    disabled={p.requireAdmin && !admToken}
                                     className={styles.button}
                                     variant={"minimal-horizontal"}
                                     highlight={router.pathname === p.path}
@@ -144,7 +142,7 @@ export default function Wrapper(props) {
                                 {i < end.length - 1 ? <div className={styles.divider}/> : null}
                             </React.Fragment>))}
 
-                            {isADM ? <span className={'material-icons-round'} title={'Administrador'}
+                            {admToken !== undefined && admToken !== null ? <span className={'material-icons-round'} title={'Administrador'}
                                            style={{fontSize: '1.1rem'}}>lock_clock</span> : null}
                             <div className={styles.divider}/>
                             <Button

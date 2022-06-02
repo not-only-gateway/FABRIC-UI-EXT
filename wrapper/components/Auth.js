@@ -28,8 +28,11 @@ export default function Auth(props) {
                 cookies.set('jwt', res.data.token)
                 localStorage.setItem('exp', res.data.exp)
                 localStorage.setItem('email', form.email + '@aeb.gov.br')
-                if(asADM)
-                    sessionStorage.setItem('token', v4().toString())
+                const token = v4().toString()
+                if(asADM) {
+                    sessionStorage.setItem('token', token)
+                    props.setAdmToken(token)
+                }
                 props.handleClose()
             } else
                 setError('Senha ou email não compatíveis')

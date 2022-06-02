@@ -6,6 +6,5 @@ export default function NavigationGroup(props) {
 }
 NavigationGroup.propTypes = {
    children: PropTypes.node,
-   justify: PropTypes.oneOf(['end', 'start']),
 
 }

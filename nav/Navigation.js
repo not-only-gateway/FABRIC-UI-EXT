@@ -10,7 +10,7 @@ export default function Navigation(props) {
          end: ch.filter(c => c.props.justify !== 'start'),
          start: ch.filter(c => c.props.justify === 'start')
       }
-   }, [props.children])
+   }, [props])
    return (
       <nav className={styles.wrapper}>
          <div className={[styles.group, props.groupClassName].join(' ')} style={props.groupStyles} data-end={'false'}>
